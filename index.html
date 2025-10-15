@@ -531,18 +531,19 @@
         transform: translateX(-50%);
         top: auto;     
         bottom: 80px;   
-        width: 90%; 
-        max-width: 350px; 
-        height: auto;
+        width: 123px;
+        height: 93px;
         padding-bottom: 10px;
       }
       
       #infoBox h3 {
-        font-size: 1.0rem; 
-        margin: 10px;
+        font-size: 0.8rem; 
+        margin: 8px;
       }
 
       #infoBox p {
+        margin: 8px 14px; 
+        text-align: left;  
         font-size: 0.85rem; 
         line-height: 1.4em;
       }
@@ -815,7 +816,17 @@
       "assets/videos/brasil.mp4",
       "assets/videos/usa.mp4",
       "assets/videos/mexico.mp4",
-      "assets/videos/argentina.mp4"
+      "assets/videos/argentina.mp4",
+      "assets/videos/CAN-BELGI.mp4",
+      "assets/videos/Colombia-Japan.mp4",
+      "assets/videos/England-Iran.mp4",
+      "assets/videos/Jordan-Qatar.mp4",
+      "assets/videos/Morocco-KoreaS.mp4",
+      "assets/videos/NewZealand.mp4",
+      "assets/videos/Tunez-Australia.mp4",
+      "assets/videos/Uzbekistan-Uruguay.mp4",
+      "assets/videos/Paraguay.mp4"
+
     ];
 
     const triviaData = [
@@ -1002,6 +1013,8 @@
           model.setAttribute("visible", "false");
           buttonsPanel.style.display = "none";
           infoBox.style.display = "none";
+          model.removeAttribute('animation-mixer');
+          model.removeAttribute('animation');
         });
       });
     }
@@ -1043,16 +1056,16 @@
           <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
           <a-entity mindar-image-target="targetIndex: 0" data-country="mexico">
-            <a-gltf-model src="#model-mexico" scale="0.1 0.1 0.1" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-mexico" scale="0.2 0.2 0.2" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
           <a-entity mindar-image-target="targetIndex: 1" data-country="mexico">
-            <a-gltf-model src="#model-mexico" scale="0.1 0.1 0.1" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-mexico" scale="0.2 0.2 0.2" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
           <a-entity mindar-image-target="targetIndex: 2" data-country="mexico">
-            <a-gltf-model src="#model-mexico" scale="0.1 0.1 0.1" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-mexico" scale="0.2 0.2 0.2" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
           
           <a-entity mindar-image-target="targetIndex: 3" data-country="usa">
-            <a-gltf-model src="#model-usa" scale="0.1 0.1 0.1" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-usa" scale="0.3 0.3 0.3" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
           <a-entity mindar-image-target="targetIndex: 4" data-country="usa">
-            <a-gltf-model src="#model-usa" scale="0.1 0.1 0.1" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-usa" scale="0.3 0.3 0.3" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
           
             <a-entity mindar-image-target="targetIndex: 5" data-country="australia">
             <a-gltf-model src="#model-australia" scale="0.12 0.12 0.12" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
@@ -1065,9 +1078,9 @@
             <a-gltf-model src="#model-brasil" scale="0.012 0.012 0.012" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
           
           <a-entity mindar-image-target="targetIndex: 9" data-country="iran">
-            <a-gltf-model src="#model-iran" scale="0.05 0.05 0.05" position="0 0.46 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-iran" scale="0.065 0.065 0.065" position="0 0.46 0" visible="false"></a-gltf-model></a-entity>
           <a-entity mindar-image-target="targetIndex: 10" data-country="iran">
-            <a-gltf-model src="#model-iran" scale="0.05 0.05 0.05" position="0 0.46 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-iran" scale="0.065 0.065 0.065" position="0 0.46 0" visible="false"></a-gltf-model></a-entity>
           
           <a-entity mindar-image-target="targetIndex: 11" data-country="japon">
             <a-gltf-model src="#model-japon" scale="0.01 0.01 0.01" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
@@ -1075,14 +1088,14 @@
             <a-gltf-model src="#model-japon" scale="0.01 0.01 0.01" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
           
           <a-entity mindar-image-target="targetIndex: 13" data-country="argentina">
-            <a-gltf-model src="#model-argentina" scale="5.0 5.0 5.0" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-argentina" scale="2.5 2.5 2.5" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
           <a-entity mindar-image-target="targetIndex: 14" data-country="argentina">
-            <a-gltf-model src="#model-argentina" scale="5.0 5.0 5.0" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-argentina" scale="2.5 2.5 2.5" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
           
           <a-entity mindar-image-target="targetIndex: 15" data-country="canada">
-            <a-gltf-model src="#model-canada" scale="0.2 0.2 0.2" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-canada" scale="0.35 0.35 0.35" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
           <a-entity mindar-image-target="targetIndex: 16" data-country="canada">
-            <a-gltf-model src="#model-canada" scale="0.2 0.2 0.2" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-canada" scale="0.35 0.35 0.35" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
           
           <a-entity mindar-image-target="targetIndex: 17" data-country="uzbekistan">
             <a-gltf-model src="#model-uzbekistan" scale="0.009 0.009 0.009" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
@@ -1090,9 +1103,9 @@
             <a-gltf-model src="#model-uzbekistan" scale="0.009 0.009 0.009" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
           
           <a-entity mindar-image-target="targetIndex: 19" data-country="jordan">
-            <a-gltf-model src="#model-jordan" scale="0.15 0.15 0.15" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-jordan" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
           <a-entity mindar-image-target="targetIndex: 20" data-country="jordan">
-            <a-gltf-model src="#model-jordan" scale="0.15 0.15 0.15" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-jordan" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
           
           <a-entity mindar-image-target="targetIndex: 21" data-country="nuevazelan">
             <a-gltf-model src="#model-nuevazelan" scale="0.12 0.12 0.12" position="0 0.35 0" visible="false"></a-gltf-model></a-entity>
@@ -1130,9 +1143,9 @@
             <a-gltf-model src="#model-marruecos" scale="0.12 0.12 0.12" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
           
           <a-entity mindar-image-target="targetIndex: 35" data-country="tunez">
-            <a-gltf-model src="#model-tunez" scale="0.14 0.14 0.14" position="0 0 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-tunez" scale="0.11 0.11 0.11" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
           <a-entity mindar-image-target="targetIndex: 36" data-country="tunez">
-            <a-gltf-model src="#model-tunez" scale="0.14 0.14 0.14" position="0 0 0" visible="false"></a-gltf-model></a-entity>
+            <a-gltf-model src="#model-tunez" scale="0.11 0.11 0.11" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
         
           </a-scene>
       `;
