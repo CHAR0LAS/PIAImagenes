@@ -19,3 +19,16 @@
   
                  ------ "Marruecos"  
                   ------"Tunéz"
+
+
+  <a-entity class="model-wrapper" 
+              animation="property: rotation; 
+              to: 0 360 0; 
+              loop: true; 
+              dur: 4000; 
+              easing: linear; 
+              enabled: false;"
+            >
+            
+            </a-entity>
+          </a-entity>

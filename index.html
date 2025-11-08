@@ -484,7 +484,7 @@
       color: white;
       z-index: 100; 
       display: none; 
-      padding: 10px 15px;
+      padding: 6px 15px;
       box-sizing: border-box; 
     }
 
@@ -509,7 +509,7 @@
 
     #ar-footer p {
       margin: 0;
-      font-size: 0.9rem;
+      font-size: 0.7rem;
       color: wheat;
     }
 
@@ -568,20 +568,20 @@
         transform: translateX(-50%);
         top: auto;     
         bottom: 80px;   
-        width: 265px;
-        height: 175px;
+        width: 260px;
+        height: 170px;
         padding-bottom: 10px;
       }
       
       #infoBox h3 {
-        font-size: 0.9rem; 
+        font-size: 0.75rem; 
         margin: 8px;
       }
 
       #infoBox p {
         margin: 8px 11px; 
         text-align: left;  
-        font-size: 0.78rem; 
+        font-size: 0.75rem; 
         line-height: 1.4em;
       }
 
@@ -643,7 +643,6 @@
     <button id="backBtn">Salir</button> 
   </div>
   <div id="ar-footer">
-    <p>Escanea las banderas de los países</p>
   </div>
 
   <div id="infoBox" class="info-box" style="display:none;"></div>
@@ -992,22 +991,55 @@
     document.getElementById('btn4').addEventListener('click', () => { 
       if (currentCountry) animaModel(currentCountry); });
     
-    function animaModel(country) { 
-      const model = document.querySelector(`[data-country="${country}"] > a-gltf-model`); 
-      
-      if (!model) return; model.setAttribute("visible", true); 
-      const mesh = model.getObject3D("mesh"); 
 
-      if (mesh && mesh.animations && mesh.animations.length > 0) { 
-        model.setAttribute("animation-mixer", 
-        { clip: mesh.animations[0].name, loop: "repeat", timeScale: 1 }); 
-      } 
-      else { 
-        model.setAttribute("animation", 
-        { property: "rotation", to: "0 360 0", loop: true, dur: 4000, easing: "linear" }); 
+    AFRAME.registerComponent('auto-rotate', {
+      schema: {
+        enabled: {type: 'boolean', default: false},
+        speed: {type: 'number', default: 0.01} // Puedes ajustar la velocidad aquí
+      },
+
+      tick: function () {
+        if (!this.data.enabled) { return; }
+        this.el.object3D.rotation.y += this.data.speed;
+      }
+    });
+
+    function animaModel(country) {
+      const targetEntity = document.querySelector(`[data-country="${country}"]`);
+      if (!targetEntity) return;
+
+      const modelWrapper = targetEntity.querySelector('.model-wrapper');
+      const modelEl = targetEntity.querySelector('a-gltf-model');
+      
+      if (!modelWrapper || !modelEl) return;
+
+      modelEl.setAttribute("visible", true);
+
+      if (modelEl.hasLoaded) {
+        checkAndPlayAnimation(modelEl, modelWrapper, country);
+      } else {
+        modelEl.addEventListener('model-loaded', function onModelLoaded() {
+          checkAndPlayAnimation(modelEl, modelWrapper, country);
+        }, { once: true });
       }
     }
-    
+
+    function checkAndPlayAnimation(modelEl, modelWrapper, country) {
+      
+      const gltfData = modelEl.components['gltf-model']?.model;
+
+      if (gltfData && gltfData.animations && gltfData.animations.length > 0) {
+        console.log("Activando animación INTERNA para: " + country);
+        modelWrapper.setAttribute('auto-rotate', 'enabled: false');
+        modelEl.setAttribute("animation-mixer", { clip: '*', loop: "repeat" });
+        
+      } else {
+        console.log("Activando giro MANUAL (auto-rotate) para: " + country);
+        modelEl.removeAttribute('animation-mixer');
+        modelWrapper.setAttribute('auto-rotate', 'enabled: true'); 
+      }
+    }
+   
     let triviaIndex = 0; let triviaQuestions = [];
 
     function showTrivia() { 
@@ -1065,12 +1097,21 @@
 
         target.addEventListener("targetLost", event => {
           const country = event.target.dataset.country;
-          const model = event.target.querySelector("a-gltf-model"); // <-- ¡CAMBIO IMPORTANTE!
+          const modelWrapper = event.target.querySelector(".model-wrapper");
+          const model = event.target.querySelector("a-gltf-model");
 
           console.log("❌ Perdido:", country);
           currentCountry = null;
           
-          model.setAttribute("visible", "false");
+          if (model) {
+            model.setAttribute("visible", "false");
+            model.removeAttribute('animation-mixer'); 
+          }
+          if (modelWrapper) {
+            modelWrapper.setAttribute('auto-rotate', 'enabled: false'); 
+            modelWrapper.setAttribute('rotation', '0 0 0'); 
+          }
+          
           buttonsPanel.style.display = "none";
           infoBox.style.display = "none";
           model.removeAttribute('animation-mixer');
@@ -1107,14 +1148,14 @@
             <a-asset-item id="model-argentina" src="assets/modelos/mate/scene.glb"></a-asset-item>
             <a-asset-item id="model-mexico" src="assets/modelos/mexico/scene.glb"></a-asset-item>
             <a-asset-item id="model-canada" src="assets/modelos/moose/scene.gltf"></a-asset-item>
-            <a-asset-item id="model-marruecos" src="assets/modelos/morocco/flag.glb"></a-asset-item>
+            <a-asset-item id="model-marruecos" src="assets/modelos/morocco/scene.glb"></a-asset-item>
             <a-asset-item id="model-nuevazelan" src="assets/modelos/NZ/NZ.gltf"></a-asset-item>
             <a-asset-item id="model-paraguay" src="assets/modelos/para/scene.glb"></a-asset-item>
             <a-asset-item id="model-jordan" src="assets/modelos/petra/scene.glb"></a-asset-item> 
             <a-asset-item id="model-japon" src="assets/modelos/suchi/scene.glb"></a-asset-item>
             <a-asset-item id="model-tunez" src="assets/modelos/tunez/scene.glb"></a-asset-item>           
             <a-asset-item id="model-uruguay" src="assets/modelos/Uru/scene.glb"></a-asset-item> 
-            <a-asset-item id="model-uzbekistan" src="assets/modelos/uzbe/scene.gltf"></a-asset-item>
+            <a-asset-item id="model-uzbekistan" src="assets/modelos/uzbe/scene.glb"></a-asset-item>
             <a-asset-item id="model-colombia" src="assets/modelos/colombia/scene.gltf"></a-asset-item>
             
           </a-assets>
@@ -1122,98 +1163,227 @@
           <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
           <a-entity mindar-image-target="targetIndex: 0" data-country="mexico">
-            <a-gltf-model src="#model-mexico" scale="0.2 0.2 0.2" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-mexico" scale="0.12 0.12 0.12" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+          
           <a-entity mindar-image-target="targetIndex: 1" data-country="mexico">
-            <a-gltf-model src="#model-mexico" scale="0.2 0.2 0.2" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-mexico" scale="0.12 0.12 0.12" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+          
           <a-entity mindar-image-target="targetIndex: 2" data-country="mexico">
-            <a-gltf-model src="#model-mexico" scale="0.2 0.2 0.2" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-mexico" scale="0.12 0.12 0.12" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 3" data-country="usa">
-            <a-gltf-model src="#model-usa" scale="0.3 0.3 0.3" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-usa" scale="0.3 0.3 0.3" position="0 0.5 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+          
           <a-entity mindar-image-target="targetIndex: 4" data-country="usa">
-            <a-gltf-model src="#model-usa" scale="0.3 0.3 0.3" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
-          
-            <a-entity mindar-image-target="targetIndex: 5" data-country="australia">
-            <a-gltf-model src="#model-australia" scale="0.15 0.15 0.15" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-usa" scale="0.3 0.3 0.3" position="0 0.5 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
+          <a-entity mindar-image-target="targetIndex: 5" data-country="australia">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-australia" scale="0.15 0.15 0.15" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 6" data-country="australia">
-            <a-gltf-model src="#model-australia" scale="0.15 0.15 0.15" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-australia" scale="0.15 0.15 0.15" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 7" data-country="brasil">
-            <a-gltf-model src="#model-brasil" scale="0.012 0.012 0.012" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-brasil" scale="0.012 0.012 0.012" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+          
           <a-entity mindar-image-target="targetIndex: 8" data-country="brasil">
-            <a-gltf-model src="#model-brasil" scale="0.012 0.012 0.012" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-brasil" scale="0.012 0.012 0.012" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 9" data-country="iran">
-            <a-gltf-model src="#model-iran" scale="0.065 0.065 0.065" position="0 0.46 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-iran" scale="0.065 0.065 0.065" position="0 0.46 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 10" data-country="iran">
-            <a-gltf-model src="#model-iran" scale="0.065 0.065 0.065" position="0 0.46 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-iran" scale="0.065 0.065 0.065" position="0 0.46 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 11" data-country="japon">
-            <a-gltf-model src="#model-japon" scale="0.01 0.01 0.01" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-japon" scale="0.01 0.01 0.01" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 12" data-country="japon">
-            <a-gltf-model src="#model-japon" scale="0.01 0.01 0.01" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-japon" scale="0.01 0.01 0.01" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 13" data-country="argentina">
-            <a-gltf-model src="#model-argentina" scale="2.5 2.5 2.5" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-argentina" scale="3.5 3.5 3.5" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+      
           <a-entity mindar-image-target="targetIndex: 14" data-country="argentina">
-            <a-gltf-model src="#model-argentina" scale="2.5 2.5 2.5" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-argentina" scale="3.5 3.5 3.5" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 15" data-country="canada">
-            <a-gltf-model src="#model-canada" scale="0.35 0.35 0.35" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-canada" scale="0.35 0.35 0.35" position="0 0.5 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
           <a-entity mindar-image-target="targetIndex: 16" data-country="canada">
-            <a-gltf-model src="#model-canada" scale="0.35 0.35 0.35" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-canada" scale="0.35 0.35 0.35" position="0 0.5 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 17" data-country="uzbekistan">
-            <a-gltf-model src="#model-uzbekistan" scale="0.1 0.1 0.1" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-uzbekistan" scale="0.2 0.2 0.2" position="0 0.5 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
           <a-entity mindar-image-target="targetIndex: 18" data-country="uzbekistan">
-            <a-gltf-model src="#model-uzbekistan" scale="0.1 0.1 0.1" position="0 0.5 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-uzbekistan" scale="0.2 0.2 0.2" position="0 0.5 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 19" data-country="jordan">
-            <a-gltf-model src="#model-jordan" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-jordan" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
           <a-entity mindar-image-target="targetIndex: 20" data-country="jordan">
-            <a-gltf-model src="#model-jordan" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-jordan" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 21" data-country="nuevazelan">
-            <a-gltf-model src="#model-nuevazelan" scale="0.12 0.12 0.12" position="0 0.35 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-nuevazelan" scale="0.12 0.12 0.12" position="0 0.35 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
           <a-entity mindar-image-target="targetIndex: 22" data-country="nuevazelan">
-            <a-gltf-model src="#model-nuevazelan" scale="0.12 0.12 0.12" position="0 0.35 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-nuevazelan" scale="0.12 0.12 0.12" position="0 0.35 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 23" data-country="ecuador">
-            <a-gltf-model src="#model-ecuador" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-ecuador" scale="0.12 0.12 0.12" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+  
           <a-entity mindar-image-target="targetIndex: 24" data-country="ecuador">
-            <a-gltf-model src="#model-ecuador" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-ecuador" scale="0.12 0.12 0.12" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 25" data-country="coreasur">
-            <a-gltf-model src="#model-coreasur" scale="0.14 0.14 0.14" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-coreasur" scale="0.125 0.125 0.125" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
           <a-entity mindar-image-target="targetIndex: 26" data-country="coreasur">
-            <a-gltf-model src="#model-coreasur" scale="0.14 0.14 0.14" position="0 0.3 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-coreasur" scale="0.125 0.125 0.125" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 27" data-country="colombia">
-            <a-gltf-model src="#model-colombia" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-colombia" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
           <a-entity mindar-image-target="targetIndex: 28" data-country="colombia">
-            <a-gltf-model src="#model-colombia" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-colombia" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 29" data-country="uruguay">
-            <a-gltf-model src="#model-uruguay" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-uruguay" scale="0.12 0.12 0.12" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
           <a-entity mindar-image-target="targetIndex: 30" data-country="uruguay">
-            <a-gltf-model src="#model-uruguay" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-uruguay" scale="0.12 0.12 0.12" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 31" data-country="paraguay">
-            <a-gltf-model src="#model-paraguay" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-paraguay" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
           <a-entity mindar-image-target="targetIndex: 32" data-country="paraguay">
-            <a-gltf-model src="#model-paraguay" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-paraguay" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 33" data-country="marruecos">
-            <a-gltf-model src="#model-marruecos" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-marruecos" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
           <a-entity mindar-image-target="targetIndex: 34" data-country="marruecos">
-            <a-gltf-model src="#model-marruecos" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
-          
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-marruecos" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
           <a-entity mindar-image-target="targetIndex: 35" data-country="tunez">
-            <a-gltf-model src="#model-tunez" scale="0.11 0.11 0.11" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-tunez" scale="0.11 0.11 0.11" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
           <a-entity mindar-image-target="targetIndex: 36" data-country="tunez">
-            <a-gltf-model src="#model-tunez" scale="0.11 0.11 0.11" position="0 0.4 0" visible="false"></a-gltf-model></a-entity>
-        
-          </a-scene>
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-tunez" scale="0.11 0.11 0.11" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
       `;
 
       setTimeout(() => {
