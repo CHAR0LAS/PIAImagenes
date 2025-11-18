@@ -8,30 +8,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </head>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <style>
     body, html {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-     background: linear-gradient(to bottom, #254d14, #669b638c);
+      /* Fondo verde difuminado por defecto */
+      background: linear-gradient(to bottom, #254d14, #669b638c);
       color: rgb(0, 0, 0);
       width: 100%;
       height: 100%;
       overflow-x: hidden;
+    }
+
+    /* ESTILO AÑADIDO: Fondo transparente cuando AR está activo */
+    body.ar-active, html.ar-active {
+      background: none !important; 
     }
         
     .container {
@@ -95,7 +87,7 @@
         
     .content-section {
       display: flex;
-      flex-direction: column; /* Cambiado a columna para apilar los elementos */
+      flex-direction: column; 
       flex: 1;
       gap: 40px;
       margin-bottom: 40px;
@@ -107,14 +99,13 @@
       min-width: 300px;
     }
     
-    /* Nuevo estilo para el cuadro amarillo */
     .yellow-box {
-      background: #32c225; /* Amarillo muy claro */
+      background: #32c225; 
       border: 1px solid #ffecb3;
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      max-width: 900px; /* Limita el ancho del texto */
+      max-width: 900px; 
       margin: 0 auto;
     }
 
@@ -122,9 +113,8 @@
       flex: 1;
       display: flex;
       justify-content: center;
-      align-items: center; /* Centrar la imagen debajo del texto */
+      align-items: center; 
       min-width: 300px;
-      /* Asegura que la imagen ocupe todo el ancho disponible si es necesario */
       width: 100%; 
       margin-top: 30px; 
     }
@@ -163,11 +153,11 @@
       color: #ffffff;
     }
 
+    /* ESTILO MODIFICADO: Botones Horizontales (Desktop) */
     .buttons-main {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      flex-direction: column; 
     }
     
     .cta-button {
@@ -179,9 +169,12 @@
       cursor: pointer;
       transition: all 0.2s; 
       box-shadow: 0 6px 15px rgba(19, 78, 16, 0.774); 
-      width: 80%;   
-      max-width: 300px; 
-      margin: 10px auto; 
+      width: 150px; 
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 40px; 
     }
     
     .cta-button:hover {
@@ -189,7 +182,7 @@
       transform: translateY(-3px); 
       box-shadow: 0 8px 20px rgba(4, 214, 98, 0.5); 
     }
-        
+          
     .camera-icon {
       font-size: 2rem; 
     }
@@ -197,84 +190,22 @@
     /*-----------------FOOTER-----------------------*/
     .footer-content {
       display: flex;
-      justify-content: center; 	
-      align-items: center; 	 	
-      gap: 20px; 	 	 	 	
+      justify-content: center;  
+      align-items: center;    
+      gap: 20px;        
       flex-wrap: wrap;
       background-color: #1a1a1a; 
-      color: #ddd; 	 	
+      color: #ddd;     
       margin-top: 40px;
       padding: 15px 20px;
-      font-size: 0.85rem; 	
+      font-size: 0.85rem;   
     }
 
     .footer-content h2 {
       margin: 0; 
     }
 
-    @media (max-width: 768px) {
-      .header-title {
-        font-size: 2.2rem; 
-      }
-      .header-subtitle {
-        font-size: 1.2rem;
-      }
-      h1 {
-        font-size: 1.3rem;
-      }
-      .cta-button {
-        margin: 10px;
-        width: 80%;
-        max-width: 250px;
-      }
-      .tables-grid {
-        grid-template-columns: 1fr;
-      }
-
-      /* Ajustes para el yellow-box en móvil */
-      .yellow-box {
-        padding: 20px;
-        margin: 0;
-      }
-
-      /* AJUSTES MÓVIL PANTALLA AR - INFO BOX */
-      #infoBox {
-        left: 50%;
-        transform: translateX(-50%);
-        top: auto; 	
-        bottom: 80px; 	
-        width: 90%; 
-        max-width: 300px;
-        height: auto;
-        padding-bottom: 10px;
-      }
-      
-      #infoBox h3 {
-        font-size: 1rem; 
-        margin: 8px;
-      }
-
-      #infoBox p {
-        margin: 8px 11px; 
-        text-align: left; 	
-        font-size: 0.9rem; 
-        line-height: 1.4em;
-      }
-
-      /* APARTADO VIDEO */
-      #videoButtons {
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 10px; 
-      }
-
-      #videoButtons button {
-        font-size: 0.9rem; 
-        padding: 12px;
-      }
-    }
-
-
-    /* --- 	 STATS 	--- 	 	 	*/
+    /* ---  STATS  ---      */
     .tables-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -302,7 +233,6 @@
       box-shadow: 0 12px 25px rgba(0,0,0,0.2);
     }
 
-    /* Colores por clase específica - Se mantienen, son buenos */
     .confederacion-table.conmebol { border-color: #2ecc71; }
     .confederacion-table.afc { border-color: #e74c3c; }
     .confederacion-table.uefa { border-color: #3498db; }
@@ -321,7 +251,6 @@
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
 
-    /* Colores de fondo para los títulos - Se mantienen */
     .confederacion-table.conmebol h3 {
       background: linear-gradient(135deg, #2ecc71, #27ae60);
     }
@@ -363,7 +292,6 @@
       font-size: 14px;
     }
 
-    /* Colores de borde para los headers - Se mantienen */
     .confederacion-table.conmebol th { border-bottom-color: #2ecc71; }
     .confederacion-table.afc th { border-bottom-color: #e74c3c; }
     .confederacion-table.uefa th { border-bottom-color: #3498db; }
@@ -385,7 +313,6 @@
       background: #f8f9fa; 
     }
 
-    /* Efectos de número de mundiales - Se mantienen */
     .confederacion-table td:nth-child(2) {
       font-weight: bold;
       text-align: center;
@@ -399,7 +326,7 @@
       margin: 0 2px;
     }
 
-    /* --- 	 TRIVIA 	--- 	 	 	*/
+    /* ---  TRIVIA  ---      */
     #triviaBox {
       display: none;
     }
@@ -503,9 +430,41 @@
         transform: translateY(-2px);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
+
     /* --- Adaptación MOVIL - Mejorar contraste en AR */
     #ar-header, #ar-footer {
+      position: fixed;
+      width: 100%;
       background-color: rgba(0, 0, 0, 0.95); 
+      color: white;
+      z-index: 100;
+      display: none;
+      padding: 6px 15px;
+      box-sizing: border-box;
+    }
+
+    #ar-header {
+      top: 0;
+      left: 0;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #ar-header h2 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    #ar-footer {
+      bottom: 0;
+      left: 0;
+      text-align: center;
+    }
+
+    #ar-footer p {
+      margin: 0;
+      font-size: 0.7rem;
+      color: wheat;
     }
 
     /* BOTÓN SALIR en modo AR */
@@ -513,7 +472,10 @@
       padding: 8px 12px;
       background: #e30a17; 
       color: white;
+      border: none;
       border-radius: 4px;
+      cursor: pointer;
+      position: static;
     }
 
     #backBtn:hover {
@@ -533,11 +495,18 @@
       h1 {
         font-size: 1.3rem;
       }
+      
+      /* AJUSTE MOVIL: Botones se vuelven a apilar verticalmente */
+      .buttons-main {
+        flex-direction: column; 
+        align-items: center;
+      }
       .cta-button {
-        margin: 10px;
+        margin: 10px auto;
         width: 80%;
         max-width: 250px;
       }
+      
       .tables-grid {
         grid-template-columns: 1fr;
       }
@@ -552,8 +521,8 @@
       #infoBox {
         left: 50%;
         transform: translateX(-50%);
-        top: auto; 	
-        bottom: 80px; 	
+        top: auto;  
+        bottom: 80px;   
         width: 90%; 
         max-width: 300px;
         height: auto;
@@ -567,7 +536,7 @@
 
       #infoBox p {
         margin: 8px 11px; 
-        text-align: left; 	
+        text-align: left;   
         font-size: 0.9rem; 
         line-height: 1.4em;
       }
@@ -584,21 +553,6 @@
       }
     }
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <body>
   <header>
@@ -621,16 +575,13 @@
     </section>
 
     <section class="cta-section">
-...
-
-    <section class="cta-section">
       <p class="cta-text">¡Prueba las experiencias del Mundial 2026!</p>
       <div class="buttons-main">
         <button class="cta-button" id="startBtn"><i class="fas fa-camera camera-icon"></i></button>
         <button class="cta-button" onclick="showStats()">Estadísticas</button>
         <button class="cta-button" onclick="showTrivia()">Trivia</button>
         <button class="cta-button" onclick="showVideo()">Video</button>
-      </div>   
+      </div>  
     </section>
   </div>
 
@@ -675,19 +626,6 @@
       <h4>[ Mundial AR 2026 ]</h4>
     </div>
   </footer>
-
-
-
-
- 
-
-
-
-
-
-
-
-
 
   <script>
     const startBtn = document.getElementById("startBtn");
@@ -962,7 +900,12 @@
     let lastVideoIndex = -1;
     let triviaIndex = 0; let triviaQuestions = [];
 
-    document.getElementById("backBtn").addEventListener("click", () => { window.location.href = "index.html"; });
+    // MODIFICADO: Se agrega la eliminación de la clase 'ar-active' al salir del AR.
+    document.getElementById("backBtn").addEventListener("click", () => { 
+        document.body.classList.remove('ar-active');
+        window.location.href = "index.html"; 
+    });
+
     function resetButtons() { 
       mainButtons.forEach((btn, i) => { btn.style.display = "inline-block"; }); 
     }
@@ -1113,17 +1056,18 @@
     }
     
     function hideAll() { 
-     statsBox.style.display = "none"; 
-    videoBox.style.display = "none"; 
-    triviaBox.style.display = "none"; 
-    videoPlayer.pause(); 
-    videoPlayer.currentTime = 0; 
+      statsBox.style.display = "none"; 
+      videoBox.style.display = "none"; 
+      triviaBox.style.display = "none"; 
+      videoPlayer.pause(); 
+      videoPlayer.currentTime = 0; 
 
-    // OCULTA LOS ELEMENTOS DE LA INTERFAZ AR
-    document.getElementById('ar-header').style.display = 'none';
-    document.getElementById('ar-footer').style.display = 'none';
-    buttonsPanel.style.display = "none";
-    infoBox.style.display = "none";
+      // OCULTA LOS ELEMENTOS DE LA INTERFAZ AR y remueve la clase AR-ACTIVE
+      document.getElementById('ar-header').style.display = 'none';
+      document.getElementById('ar-footer').style.display = 'none';
+      buttonsPanel.style.display = "none";
+      infoBox.style.display = "none";
+      document.body.classList.remove('ar-active'); // Importante: remueve la clase al salir
     }
 
     function initARLogic() {
@@ -1178,6 +1122,8 @@
       document.getElementById('ar-header').style.display = 'flex';
       document.getElementById('ar-footer').style.display = 'block';
 
+      document.body.classList.add('ar-active'); // Importante: añade la clase AR-ACTIVE
+
       videoPlayer.pause();
 
       arContainer.classList.add("active");
@@ -1204,7 +1150,7 @@
             <a-asset-item id="model-paraguay" src="assets/modelos/para/scene.glb"></a-asset-item>
             <a-asset-item id="model-jordan" src="assets/modelos/petra/scene.glb"></a-asset-item> 
             <a-asset-item id="model-japon" src="assets/modelos/suchi/scene.glb"></a-asset-item>
-            <a-asset-item id="model-tunez" src="assets/modelos/tunez/scene.glb"></a-asset-item>           
+            <a-asset-item id="model-tunez" src="assets/modelos/tunez/scene.glb"></a-asset-item>         
             <a-asset-item id="model-uruguay" src="assets/modelos/Uru/scene.glb"></a-asset-item> 
             <a-asset-item id="model-uzbekistan" src="assets/modelos/uzbe/scene.glb"></a-asset-item>
             <a-asset-item id="model-colombia" src="assets/modelos/colombia/scene.gltf"></a-asset-item>
@@ -1296,7 +1242,7 @@
               <a-gltf-model src="#model-argentina" scale="3.5 3.5 3.5" position="0 0.3 0" visible="false"></a-gltf-model>
             </a-entity>
           </a-entity>
-      
+          
           <a-entity mindar-image-target="targetIndex: 14" data-country="argentina">
             <a-entity class="model-wrapper" auto-rotate="enabled: false;">
               <a-gltf-model src="#model-argentina" scale="5 5 5" position="0 0.3 0" visible="false"></a-gltf-model>
