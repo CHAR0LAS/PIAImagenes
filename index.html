@@ -1,1424 +1,1449 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap" rel="stylesheet">
-  </head>
-  <style>
-    :root {
-        /* Paleta de Colores Mundialista */
-        --color-primary: #004d98; /* Azul oscuro/Real (Color principal) */
-        --color-secondary: #ff3c00; /* Naranja/Rojo Vibrante (Acentos, botones CTA) */
-        --color-tertiary: #00cc66; /* Verde Brillante (Éxito, hover) */
-        --color-dark: #1a1a1a; /* Negro para fondo o texto */
-        --color-light: #f0f0f0; /* Fondo general más claro */
-        --color-text-dark: #1a1a1a;
-        --color-text-light: #ffffff;
-        --font-body: 'Arial', sans-serif;
-        --font-heading: 'Passion One', sans-serif; /* Tipografía de alto impacto (Google Font) */
-    }
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </head>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
     body, html {
-        margin: 0;
-        padding: 0;
-        font-family: var(--font-body);
-        background: var(--color-light); /* Fondo más claro */
-        color: var(--color-text-dark);
-        width: 100%;
-        height: 100%;
-        overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+     background: linear-gradient(to bottom, #254d14, #669b638c);
+      color: rgb(0, 0, 0);
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
     }
         
     .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        background-color: white; /* Contenedor principal blanco */
-        box-shadow: 0 0 25px rgba(0, 0, 0, 0.1); /* Sombra suave para destacar el contenido */
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px; 
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
-    /* --- ENCABEZADO MODERNO --- */
     header {
-        padding: 0; 
-        margin-bottom: 40px;
-        height: 80px; 
-        background-image: linear-gradient(90deg, var(--color-primary), #007bff); /* Degradado azul vibrante */
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        width: 100%;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra fuerte */
+      padding: 20px 0;
+      margin-bottom: 30px;
+      height: 65px;
+      background-image: url('assets/targets/img-originales/Picsart_25-11-18_01-27-02-259.jpg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 100%;
     }
     
     .header-content {
-        position: relative;
-        z-index: 1;
-        text-align: center;
-        max-width: 1200px;
-        width: 100%;
-        padding: 0 20px;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 1200px;
+      width: 100%;
+      padding: 0 20px;
     }
     
     .header-title {
-        font-family: var(--font-heading);
-        font-size: 3rem; 
-        margin: 0;
-        color: var(--color-text-light); /* Texto blanco */
-        letter-spacing: 2px;
-        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+      font-size: 2.8rem; 
+      margin: 0;
+      color: #ffffff; 
+      text-shadow: none; 
+      font-family: 'Verdana', sans-serif;
     }
     
     .header-subtitle {
-        font-family: var(--font-body);
-        font-size: 1.5rem;
-        margin-top: 5px;
-        color: #ffcc00; /* Amarillo/Dorado para destacar */
-        font-weight: 700;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      font-size: 1.5rem; 
+      margin-top: 10px;
+      color: #174917; 
+      font-weight: 700; 
     }
     
-    .logo { height: 100%; display: flex; align-items: center; }
-    .logo-img { height: 60px; width: auto; max-width: 200px; }
+    .logo {
+      height: 100%; 
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-img {
+      height: 60px;
+      width: auto; 
+      max-width: 200px; 
+    }
         
-    /* --- SECCIÓN PRINCIPAL --- */
     .content-section {
-        display: flex;
-        flex: 1;
-        gap: 30px;
-        margin-bottom: 50px;
-        flex-wrap: wrap;
-        align-items: center; 
+      display: flex;
+      flex-direction: column; /* Cambiado a columna para apilar los elementos */
+      flex: 1;
+      gap: 40px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
     }
         
     .text-content {
-        flex: 1;
-        min-width: 300px;
-        padding-right: 20px;
+      flex: 1;
+      min-width: 300px;
     }
     
+    /* Nuevo estilo para el cuadro amarillo */
+    .yellow-box {
+      background: #32c225; /* Amarillo muy claro */
+      border: 1px solid #ffecb3;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      max-width: 900px; /* Limita el ancho del texto */
+      margin: 0 auto;
+    }
+
     .image-content {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-width: 300px;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center; /* Centrar la imagen debajo del texto */
+      min-width: 300px;
+      /* Asegura que la imagen ocupe todo el ancho disponible si es necesario */
+      width: 100%; 
+      margin-top: 30px; 
     }
     
     .image-content img {
-        max-width: 100%;
-        border-radius: 20px; 
-        box-shadow: 0 10px 30px rgba(var(--color-secondary), 0.5); 
-        border: 4px solid var(--color-secondary); 
-        transition: transform 0.3s ease-in-out;
-    }
-    .image-content img:hover {
-        transform: scale(1.03);
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
     
     h1 {
-        font-family: var(--font-heading);
-        font-size: 1.8rem;
-        margin-top: 30px;
-        margin-bottom: 15px;
-        color: var(--color-primary); 
-        border-left: 5px solid var(--color-secondary); 
-        padding-left: 10px;
+      font-size: 1.5rem; 
+      margin-bottom: 20px;
+      color: #022b4d; 
+      border-left: 5px solid #14293d; 
+      padding-left: 15px;
     }
     
     p {
-        line-height: 1.7;
-        font-size: 1.1rem;
-        margin-bottom: 20px;
-        color: var(--color-text-dark);
+      line-height: 1.6;
+      font-size: 1.05rem; 
+      margin-bottom: 15px;
+      color: #ffffff; 
     }
     
-    /* --- SECCIÓN CTA Y BOTONES --- */
     .cta-section {
-        text-align: center;
-        margin-top: auto;
-        padding: 40px 25px;
-        width: 100%;
-        background-color: var(--color-light); 
-        border-top: 1px solid #ddd;
+      text-align: center;
+      margin-top: auto;
+      padding: 25px;
+      width: 100%;
     }
-        
+          
     .cta-text {
-        font-family: var(--font-heading);
-        font-size: 2rem;
-        margin-bottom: 30px;
-        color: var(--color-secondary);
-        text-transform: uppercase;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: #ffffff;
     }
 
     .buttons-main {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 25px; 
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      flex-direction: column; 
     }
     
     .cta-button {
-        padding: 15px 30px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        border-radius: 12px; 
-        background: linear-gradient(145deg, var(--color-secondary), #cc3000); 
-        color: white;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-        min-width: 180px; 
-        height: 70px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0; 
-        text-transform: uppercase;
-        letter-spacing: 1px;
+      padding: 20px;
+      font-size: 1.2rem;
+      border-radius: 8px; 
+      background: linear-gradient(135deg, #068611 0%, #1c4119 100%); 
+      color: rgb(255, 255, 255);
+      cursor: pointer;
+      transition: all 0.2s; 
+      box-shadow: 0 6px 15px rgba(19, 78, 16, 0.774); 
+      width: 80%;   
+      max-width: 300px; 
+      margin: 10px auto; 
     }
     
     .cta-button:hover {
-        background: linear-gradient(145deg, var(--color-tertiary), #00a34e); 
-        transform: translateY(-5px) scale(1.05);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      background: linear-gradient(135deg, #113a16 0%, #03b050 100%); 
+      transform: translateY(-3px); 
+      box-shadow: 0 8px 20px rgba(4, 214, 98, 0.5); 
     }
         
     .camera-icon {
-        font-size: 2rem;
-        margin-right: 10px;
+      font-size: 2rem; 
     }
 
     /*-----------------FOOTER-----------------------*/
-    footer {
-        width: 100%;
-        padding: 20px 0;
-        background-color: var(--color-dark); 
-        color: #ddd; 
-    }
     .footer-content {
-        display: flex;
-        justify-content: center;  
-        align-items: center;      
-        gap: 30px;              
-        flex-wrap: wrap;
-        font-size: 0.9rem;  
-        max-width: 1200px;
-        margin: 0 auto;
+      display: flex;
+      justify-content: center; 	
+      align-items: center; 	 	
+      gap: 20px; 	 	 	 	
+      flex-wrap: wrap;
+      background-color: #1a1a1a; 
+      color: #ddd; 	 	
+      margin-top: 40px;
+      padding: 15px 20px;
+      font-size: 0.85rem; 	
     }
 
-    .footer-content h4 {
-        margin: 0; 
-        font-weight: 400;
+    .footer-content h2 {
+      margin: 0; 
     }
 
-    /*---------------Contenedor AR-----------------*/
-    #ar-container {
-        display: none;
-        width: 100vw;
-        height: 100vh;
-        background: var(--color-dark); 
-        position: fixed;
-        top: 0; left: 0;
-        opacity: 0;
-        transition: opacity 0.6s ease;
-        z-index: 1000; 
-    }
-    
-    #ar-container.active {
-        display: block; 
-        opacity: 1;
-    }
+    @media (max-width: 768px) {
+      .header-title {
+        font-size: 2.2rem; 
+      }
+      .header-subtitle {
+        font-size: 1.2rem;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      .cta-button {
+        margin: 10px;
+        width: 80%;
+        max-width: 250px;
+      }
+      .tables-grid {
+        grid-template-columns: 1fr;
+      }
 
-    #buttons-panel {
-        position: fixed;
-        bottom: 25px;
+      /* Ajustes para el yellow-box en móvil */
+      .yellow-box {
+        padding: 20px;
+        margin: 0;
+      }
+
+      /* AJUSTES MÓVIL PANTALLA AR - INFO BOX */
+      #infoBox {
         left: 50%;
         transform: translateX(-50%);
-        display: none;
-        gap: 15px;
-        z-index: 1010; 
-    }
-
-    #buttons-panel button {
-        padding: 12px 25px;
-        font-size: 1.1rem;
-        border: none;
-        border-radius: 8px;
-        background: var(--color-secondary);
-        color: var(--color-text-light);
-        cursor: pointer;
-        font-weight: bold;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    }
-    #buttons-panel button:hover {
-        background: var(--color-tertiary);
-    }
-
-    /* --- INFOBOX AR (Pop-up de información) --- */
-    #infoBox {
-        position: fixed;
-        top: 50%; 
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-image: none; 
-        background-color: rgba(255, 255, 255, 0.95); 
-        border: 3px solid var(--color-primary);
-        border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-        display: none;
-        z-index: 1020;
+        top: auto; 	
+        bottom: 80px; 	
         width: 90%; 
-        max-width: 400px;
-        height: auto; 
-        padding: 20px;
-        color: var(--color-text-dark);
-        text-align: left;
+        max-width: 300px;
+        height: auto;
+        padding-bottom: 10px;
+      }
+      
+      #infoBox h3 {
+        font-size: 1rem; 
+        margin: 8px;
+      }
+
+      #infoBox p {
+        margin: 8px 11px; 
+        text-align: left; 	
+        font-size: 0.9rem; 
+        line-height: 1.4em;
+      }
+
+      /* APARTADO VIDEO */
+      #videoButtons {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; 
+      }
+
+      #videoButtons button {
+        font-size: 0.9rem; 
+        padding: 12px;
+      }
     }
 
-    #infoBox p {
-        margin: 5px 0; 
-        line-height: 1.5em;
-        font-size: 1rem;
-        color: var(--color-text-dark);
-    }
 
-    #infoBox h3 {
-        font-family: var(--font-heading);
-        font-size: 1.5rem;
-        margin: 0 0 15px 0;
-        color: var(--color-secondary);
-        text-align: center;
-        border-bottom: 2px solid var(--color-secondary);
-        padding-bottom: 5px;
-    }
-
-    /* --- STATS TABLAS --- */
+    /* --- 	 STATS 	--- 	 	 	*/
     .tables-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-        gap: 30px;
-        align-items: start;
-        margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      align-items: start;
     }
 
     .column {
-        display: contents; 
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
     }
 
     .confederacion-table {
-        border: none; 
-        padding: 0;
-        border-radius: 15px;
-        background: var(--color-light); 
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
-        overflow: hidden; 
+      border: 2px solid;
+      padding: 18px;
+      border-radius: 12px;
+      background: #ffffff; 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .confederacion-table:hover {
-        transform: translateY(-5px); 
-        box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+      transform: translateY(-5px); 
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
     }
 
-    /* Colores y estilos de título */
+    /* Colores por clase específica - Se mantienen, son buenos */
+    .confederacion-table.conmebol { border-color: #2ecc71; }
+    .confederacion-table.afc { border-color: #e74c3c; }
+    .confederacion-table.uefa { border-color: #3498db; }
+    .confederacion-table.caf { border-color: #f39c12; }
+    .confederacion-table.concacaf { border-color: #9b59b6; }
+    .confederacion-table.ofc { border-color: #1abc9c; }
+
     .confederacion-table h3 {
-        margin: 0; 
-        font-size: 1.4rem;
-        font-weight: bold;
-        padding: 15px 20px;
-        border-radius: 0; 
-        color: var(--color-text-light);
-        text-align: center;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-        font-family: var(--font-heading);
+      margin: 0 0 15px 0;
+      font-size: 18px; 
+      font-weight: bold;
+      padding: 10px 15px;
+      border-radius: 8px;
+      color: white;
+      text-align: center;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
 
-    /* Ajuste de colores de fondo para los títulos (más fuertes) */
-    .conmebol h3 { background: linear-gradient(135deg, #007bff, #0056b3); } 
-    .afc h3 { background: linear-gradient(135deg, #ff4500, #cc3700); } 
-    .uefa h3 { background: linear-gradient(135deg, #4b0082, #3a0066); } 
-    .caf h3 { background: linear-gradient(135deg, #ffd700, #ccaa00); } 
-    .concacaf h3 { background: linear-gradient(135deg, #008080, #006666); } 
-    .ofc h3 { background: linear-gradient(135deg, #00aaff, #0088cc); } 
+    /* Colores de fondo para los títulos - Se mantienen */
+    .confederacion-table.conmebol h3 {
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+    }
+    .confederacion-table.afc h3 {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+    }
+    .confederacion-table.uefa h3 {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+    }
+    .confederacion-table.caf h3 {
+      background: linear-gradient(135deg, #f39c12, #d35400);
+    }
+    .confederacion-table.concacaf h3 {
+      background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    }
+    .confederacion-table.ofc h3 {
+      background: linear-gradient(135deg, #1abc9c, #16a085);
+    }
 
     .confederacion-table h3 small {
-        font-size: 0.8rem;
-        font-weight: normal;
-        display: block; 
+      font-size: 13px;
+      opacity: 0.9;
+      font-weight: normal;
     }
 
     .confederacion-table table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 1rem;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px; 
     }
 
     .confederacion-table th {
-        background: rgba(0,0,0,0.08); 
-        padding: 12px 15px;
-        text-align: left;
-        font-weight: 700;
-        color: var(--color-text-dark);
-        border-bottom: 3px solid; 
-        font-size: 0.9rem;
-        text-transform: uppercase;
+      background: #e9ecef; 
+      padding: 12px 8px;
+      text-align: left;
+      font-weight: 700;
+      color: #2c3e50;
+      border-bottom: 2px solid;
+      font-size: 14px;
     }
 
-    /* Colores de borde para los headers */
-    .conmebol th { border-bottom-color: #007bff; }
-    .afc th { border-bottom-color: #ff4500; }
-    .uefa th { border-bottom-color: #4b0082; }
-    .caf th { border-bottom-color: #ffd700; }
-    .concacaf th { border-bottom-color: #008080; }
-    .ofc th { border-bottom-color: #00aaff; }
+    /* Colores de borde para los headers - Se mantienen */
+    .confederacion-table.conmebol th { border-bottom-color: #2ecc71; }
+    .confederacion-table.afc th { border-bottom-color: #e74c3c; }
+    .confederacion-table.uefa th { border-bottom-color: #3498db; }
+    .confederacion-table.caf th { border-bottom-color: #f39c12; }
+    .confederacion-table.concacaf th { border-bottom-color: #9b59b6; }
+    .confederacion-table.ofc th { border-bottom-color: #1abc9c; }
 
     .confederacion-table td {
-        padding: 12px 15px;
-        border-bottom: 1px dashed #cfd8dc; 
-        font-weight: 500;
-        color: var(--color-text-dark);
+      padding: 10px 8px;
+      border-bottom: 1px solid #dee2e6; 
+      font-weight: 500;
     }
 
     .confederacion-table tr:last-child td {
-        border-bottom: none;
+      border-bottom: none;
     }
 
     .confederacion-table tr:hover td {
-        background: rgba(0,0,0,0.05); 
+      background: #f8f9fa; 
     }
 
-    /* Efectos de número de mundiales */
+    /* Efectos de número de mundiales - Se mantienen */
     .confederacion-table td:nth-child(2) {
-        font-weight: 900; 
-        text-align: center;
+      font-weight: bold;
+      text-align: center;
     }
 
     .confederacion-table td:nth-child(2):not(:empty):not([data-value="0"]) {
-        color: var(--color-secondary);
-        background: rgba(255, 60, 0, 0.1); 
-        border-radius: 20px; 
-        padding: 4px 10px;
-        display: inline-block;
-        min-width: 20px;
+      color: #e67e22;
+      background: rgba(230, 126, 34, 0.1);
+      border-radius: 4px;
+      padding: 4px 8px;
+      margin: 0 2px;
     }
 
-    /* --- TRIVIA Y VIDEO BOXES (info-box) --- */
-    .info-box {
-        margin: 30px auto;
-        padding: 30px;
-        max-width: 700px;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        border: 2px solid var(--color-primary);
-        text-align: center;
-    }
-
-    /* --- TRIVIA ESPECÍFICO --- */
+    /* --- 	 TRIVIA 	--- 	 	 	*/
     #triviaBox {
-        display: none;
+      display: none;
     }
     
     #triviaQuestion {
-        font-family: var(--font-heading);
-        font-size: 1.5rem;
+        font-size: 1.4rem; 
         margin-bottom: 25px;
-        color: var(--color-primary);
+        color: #004d98; 
         font-weight: 700;
     }
     
     #triviaOptions {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 20px;
-        margin-bottom: 30px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
     }
     
     #triviaOptions button {
-        padding: 18px;
-        font-size: 1.1rem;
-        border: 2px solid transparent;
-        border-radius: 12px;
-        background: linear-gradient(145deg, var(--color-primary), #003e7a);
+        padding: 15px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px; 
+        background: linear-gradient(145deg, #005baa, #004880);
         color: white;
         cursor: pointer;
-        transition: all 0.3s;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     
     #triviaOptions button:hover {
-        background: linear-gradient(145deg, var(--color-tertiary), #008040);
-        transform: translateY(-3px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(145deg, #e30a17, #a00707); 
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
     
     #triviaResult {
-        font-size: 1.4rem;
-        font-weight: 900;
-        margin-top: 20px;
-        padding: 15px;
-        border-radius: 10px;
-        text-transform: uppercase;
+        font-size: 1.3rem; 
+        font-weight: bold;
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 8px;
     }
     
     .correct {
-        color: var(--color-tertiary);
+        color: #13ad42;
         background-color: #e8f7ef;
-        border: 2px solid var(--color-tertiary);
+        border: 2px solid #13ad42;
     }
     
     .incorrect {
-        color: var(--color-secondary);
+        color: #fd2929;
         background-color: #ffe8e8;
-        border: 2px solid var(--color-secondary);
+        border: 2px solid #fd2929;
     }
 
-    /* --- VIDEO ESPECÍFICO --- */
+    /*Interacciones html*/
+    .info-box {
+      display: none;
+      margin: 0 auto;
+      padding: 20px;
+      max-width: 800px;
+      background: #ffffff; 
+      border-radius: 12px; 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      position: relative;
+      top: 0;
+    }
+
+    /*------VIDEO---------------*/
     #videoBox video {
-        width: 100%;
-        border-radius: 12px;
-        margin-bottom: 20px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      border-radius: 12px; 
+      margin-bottom: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      background-color: #000; 
     }
 
     #videoButtons {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(4, 1fr);
         gap: 15px;
+        margin-bottom: 20px;
     }
     
     #videoButtons button {
         padding: 15px;
-        font-size: 0.95rem;
+        font-size: 1rem;
         border: none;
-        border-radius: 8px;
-        background: linear-gradient(145deg, #34495e, #2c3e50); /* Gris azulado */
+        border-radius: 10px;
+        background: linear-gradient(145deg, #005baa, #004880);
         color: white;
         cursor: pointer;
-        transition: all 0.3s;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     
     #videoButtons button:hover {
-        background: linear-gradient(145deg, #5dade2, #3498db); /* Azul claro */
+        background: linear-gradient(145deg, #00bfff, #0099cc);
         transform: translateY(-2px);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    /* --- Adaptación MOVIL - Mejorar contraste en AR */
+    #ar-header, #ar-footer {
+      background-color: rgba(0, 0, 0, 0.95); 
     }
 
-    /* --- Adaptación MOVIL AR --- */
-
-    #ar-header {
-        background-color: rgba(var(--color-primary), 0.95); 
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    #ar-header h2 {
-        font-family: var(--font-heading);
-        font-size: 1.3rem;
-        color: var(--color-text-light);
-    }
-
-    #ar-footer {
-        background-color: rgba(var(--color-dark), 0.9);
-        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
-    }
-
+    /* BOTÓN SALIR en modo AR */
     #backBtn {
-        padding: 8px 15px;
-        background: var(--color-secondary);
-        font-weight: bold;
-        border-radius: 4px;
-       
+      padding: 8px 12px;
+      background: #e30a17; 
+      color: white;
+      border-radius: 4px;
     }
 
     #backBtn:hover {
-        background: #cc3000;
+      background: #004d98; 
     }
     
     @media (max-width: 768px) {
-        /* General */
-        .container { padding: 10px; margin: 0; box-shadow: none; }
-        
-        /* Header */
-        header { height: 70px; margin-bottom: 20px; }
-        .header-title { font-size: 2.2rem; }
-        .header-subtitle { font-size: 1.2rem; }
-        
-        /* Content */
-        .content-section { flex-direction: column; gap: 30px; }
-        h1 { font-size: 1.4rem; margin-top: 20px; }
-        p { font-size: 1rem; }
-        
-        /* CTA Buttons */
-        .cta-text { font-size: 1.6rem; margin-bottom: 20px; }
-        .buttons-main { gap: 15px; flex-direction: column; }
-        .cta-button { 
-            width: 90%; 
-            max-width: 250px; 
-            font-size: 1rem; 
-            height: 60px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Stats */
-        .tables-grid { grid-template-columns: 1fr; gap: 20px; }
-        .confederacion-table h3 { font-size: 1.2rem; }
+      .content-section {
+        gap: 20px;
+      }
+      .header-title {
+        font-size: 2.2rem; 
+      }
+      .header-subtitle {
+        font-size: 1.2rem;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      .cta-button {
+        margin: 10px;
+        width: 80%;
+        max-width: 250px;
+      }
+      .tables-grid {
+        grid-template-columns: 1fr;
+      }
 
-        /* AR InfoBox */
-        #infoBox {
-            width: 85%;
-            padding: 15px;
-            max-width: none;
-            top: auto; 
-            bottom: 80px;
-            transform: translate(-50%, 0);
-        }
-        
-        #infoBox h3 { font-size: 1.3rem; margin-bottom: 10px; }
-        #infoBox p { font-size: 0.9rem; }
-        
-        /* Trivia/Video */
-        .info-box { padding: 20px; border-radius: 12px; }
-        #triviaQuestion { font-size: 1.3rem; }
-        #triviaOptions { grid-template-columns: 1fr 1fr; gap: 10px; }
-        #videoButtons { grid-template-columns: 1fr 1fr; }
-        #videoButtons button { font-size: 0.9rem; }
+      /* Ajustes para el yellow-box en móvil */
+      .yellow-box {
+        padding: 20px;
+        margin: 0;
+      }
 
+      /* AJUSTES MÓVIL PANTALLA AR - INFO BOX */
+      #infoBox {
+        left: 50%;
+        transform: translateX(-50%);
+        top: auto; 	
+        bottom: 80px; 	
+        width: 90%; 
+        max-width: 300px;
+        height: auto;
+        padding-bottom: 10px;
+      }
+      
+      #infoBox h3 {
+        font-size: 1rem; 
+        margin: 8px;
+      }
+
+      #infoBox p {
+        margin: 8px 11px; 
+        text-align: left; 	
+        font-size: 0.9rem; 
+        line-height: 1.4em;
+      }
+
+      /* APARTADO VIDEO */
+      #videoButtons {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; 
+      }
+
+      #videoButtons button {
+        font-size: 0.9rem; 
+        padding: 12px;
+      }
     }
-  </style>
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <body>
-  <header>
-    <div class="header-content">
-        <h1 class="header-title">Expe-Mundial 2026</h1>
-        <p class="header-subtitle">Experiencia de Realidad Aumentada</p>
+  <header>
+    <div class="header-content"></div>
+  </header>
+
+  <div id="intro" class="container">
+    <section class="content-section">
+        <div class="text-content yellow-box"> 
+            <h1 class="header-title">Expe-Mundial 2026</h1>
+            <p class="header-subtitle">Experiencia de Realidad Aumentada</p>
+            <p>La Copa Mundial de la FIFA 2026 será un gran evento, con partidos en tres países: Estados Unidos, Canadá y México. Por primera vez, 48 equipos competirán por el trofeo más preciado del fútbol mundial.</p>
+            <h1>¡Vive de otra forma del Mundial!</h1>
+            <p>Descubre estadísticas, datos curiosos y la emoción del fútbol con nuestra experiencia de Realidad Aumentada. Escanea las banderas de los países participantes y desbloquea contenido exclusivo de cada selección.</p>
+            <p>Con nuestra tecnología RA, podrás ver modelos 3D, videos destacados, unos filtros y resolver trivias interactivas sobre la historia de los mundiales.</p>
+        </div>
+        <div class="image-content full-width-image">
+            <img src="assets/targets/img-originales/FIFA.jpg" alt="Estadio de fútbol">
+        </div>
+    </section>
+
+    <section class="cta-section">
+...
+
+    <section class="cta-section">
+      <p class="cta-text">¡Prueba las experiencias del Mundial 2026!</p>
+      <div class="buttons-main">
+        <button class="cta-button" id="startBtn"><i class="fas fa-camera camera-icon"></i></button>
+        <button class="cta-button" onclick="showStats()">Estadísticas</button>
+        <button class="cta-button" onclick="showTrivia()">Trivia</button>
+        <button class="cta-button" onclick="showVideo()">Video</button>
+      </div>   
+    </section>
+  </div>
+
+  <div id="ar-container" class="ar-container"></div>
+  <div id="buttons-panel" class="buttons-panel">
+    <button id="btn4">Animar</button>
+  </div>
+
+  <div id="ar-header">
+    <h2>Expe-Mundial 2026</h2>
+    <button id="backBtn">Salir</button> 
+  </div>
+  <div id="ar-footer">
+  </div>
+
+  <div id="infoBox" class="info-box" style="display:none;"></div>
+
+  <div id="statsBox" class="info-box" style="display:none;"></div>
+  <br>
+  <br>
+  <div id="triviaBox" class="info-box">
+    <p id="triviaQuestion"></p>
+    <div id="triviaOptions"></div>
+    <p id="triviaResult"></p>
+  </div>
+  <br>
+  <br>
+  <div id="videoBox" class="info-box">
+    <video id="videoPlayer" controls preload="metadata"></video>
+    <div id="videoButtons">
+      <button onclick="togglePlayPause()">Play/Pause</button>
+      <button onclick="applyFilter1()">Blanco/Negro</button>
+      <button onclick="applyFilter2()">Sepia</button>
+      <button onclick="applyFilter3()">Invertir</button>
+      <button onclick="closeVideo()">Cerrar</button>
     </div>
-  </header>
-
-  <div id="intro" class="container">
-    <section class="content-section">
-      <div class="text-content">
-        
-        <p>La Copa Mundial de la FIFA 2026 será un gran evento, con partidos en tres países: Estados Unidos, Canadá y México. Por primera vez, 48 equipos competirán por el trofeo más preciado del fútbol mundial.</p>
-        <h1>¡Vive de otra forma el Mundial!</h1>
-        <p>Descubre estadísticas, datos curiosos y la emoción del fútbol con nuestra experiencia de Realidad Aumentada. Escanea las banderas de los países participantes y desbloquea contenido exclusivo de cada selección.</p>
-        <p>Con nuestra tecnología RA, podrás ver modelos 3D, videos destacados, unos filtros y resolver trivias interactivas sobre la historia de los mundiales.</p>
-      </div>
-      <div class="image-content">
-        <img src="assets/targets/img-originales/estadios.jpg" alt="Estadio de fútbol">
-      </div>
-    </section>
-
-    <section class="cta-section">
-      <p class="cta-text">¡Prueba las experiencias del Mundial 2026!</p>
-      <div class="buttons-main">
-        <button class="cta-button" id="startBtn"><i class="fas fa-camera camera-icon"></i>AR Scanner</button>
-        <button class="cta-button" onclick="showStats()">Estadísticas</button>
-        <button class="cta-button" onclick="showTrivia()">Trivia</button>
-        <button class="cta-button" onclick="showVideo()">Video Clips</button>
-      </div>   
-    </section>
-  </div>
-
-  <div id="ar-container" class="ar-container"></div>
-  <div id="buttons-panel" class="buttons-panel">
-    <button id="btn4">Animar Modelo</button>
-  </div>
-
-  <div id="ar-header">
-    <h2>Expe-Mundial 2026</h2>
-    <button id="backBtn">Salir</button> 
-  </div>
-  <div id="ar-footer">
-    <p>Escanea una bandera participante para comenzar la experiencia AR.</p>
-  </div>
-
-  <div id="infoBox" class="info-box" style="display:none;"></div>
-
-  <div id="statsBox" class="info-box" style="display:none;"></div>
-  
-  <div id="triviaBox" class="info-box">
-    <p id="triviaQuestion"></p>
-    <div id="triviaOptions"></div>
-    <p id="triviaResult"></p>
-  </div>
-  
-  <div id="videoBox" class="info-box">
-    <video id="videoPlayer" controls preload="metadata"></video>
-    <div id="videoButtons">
-      <button onclick="togglePlayPause()">Play/Pause</button>
-      <button onclick="applyFilter1()">B/N</button>
-      <button onclick="applyFilter2()">Sepia</button>
-      <button onclick="applyFilter3()">Invertir</button>
-      <button onclick="closeVideo()">Cerrar</button>
-    </div>
-  </div>
-
-  <footer>
-    <div class="footer-content">
-      <h4>&copy; 2025 Mi Proyecto AR. Todos los derechos reservados.</h4>
-      <h4>Desarrollado por [Emiliano Romo Rmz]</h4>
-    </div>
-  </footer>
-
-  <script>
-    const startBtn = document.getElementById("startBtn");
-    const intro = document.getElementById("intro");
-    const arContainer = document.getElementById("ar-container");
-    const buttonsPanel = document.getElementById("buttons-panel");
-    const infoBox = document.getElementById("infoBox");
-    const statsBox = document.getElementById("statsBox");
-    const triviaBox = document.getElementById("triviaBox");
-    const triviaQuestion = document.getElementById("triviaQuestion");
-    const triviaResult = document.getElementById("triviaResult");
-    const videoBox = document.getElementById("videoBox");
-    const videoPlayer = document.getElementById("videoPlayer");
-    const videoButtons = document.getElementById("videoButtons");
-    const btn4 = document.getElementById("btn4");
-    const mainButtons = [btn4];
-
-    const countryData = {
-      argentina: {
-        name: "Argentina",
-        info: `
-          <p>Mejor Jugador Actual: Lionel Messi
-          Otros Destacados: Julián Álvarez, Emiliano Martínez
-          Mejores Equipos: River Plate, Boca Juniors, Estudiantes</p>
-          `
-      },
-      mexico: {
-        name: "México",
-        info: `
-          <p>Mejor Participación: Cuartos de Final
-          <p>Mejor Jugador Actual: Edson Álvarez
-          <p>Otros Destacados: Santiago Giménez, Guillermo Ochoa</p>
-          <p>Mejores Equipos: América, Chivas, Monterrey</p>
-        `
-      },
-      usa: {
-        name: "USA",
-        info: `
-          <p>Mejor Participación: Tercer Lugar</p>
-          <p>Mejor Jugador Actual: Christian Pulisic</p>
-          <p>Otros Destacados: Weston McKennie, Giovanni Reyna</p>
-          <p>Mejores Equipos: Columbus Crew, Inter Miami, LAFC</p>
-          `
-      },
-      brasil: {
-        name: "Brasil",
-        info: `
-          <p>Mejor Jugador Actual: Vinicius Jr.</p>
-          <p>Otros Destacados: Rodrygo, Marquinhos</p>
-          <p>Mejores Equipos: Flamengo, Palmeiras, São Paulo</p>
-        `
-      },
-      canada: {
-        name: "Canadá",
-        info: `
-          <p>Mejor Participación: Fase de Grupos (1986, 2022)</p>
-          <p>Mejor Jugador Actual: Alphonso Davies</p>
-          <p>Otros Destacados: Jonathan David, Tajon Buchanan</p>
-          <p>Mejores Equipos: Toronto FC, CF Montréal, Vancouver Whitecaps</p>
-        `
-      },
-      ecuador: {
-        name: "Ecuador",
-        info: `
-          <p>Mejor Participación: Octavos de Final (2006)</p>
-          <p>Mejor Jugador Actual: Moisés Caicedo</p>
-          <p>Otros Destacados: Piero Hincapié, Enner Valencia</p>
-          <p>Mejores Equipos: Barcelona SC, Emelec, Independiente del Valle</p>
-        `
-      },
-      uruguay: {
-        name: "Uruguay",
-        info: `
-          <p>Campeón Mundial: 1930, 1950</p>
-          <p>Mejor Jugador Actual: Federico Valverde</p>
-          <p>Otros Destacados: Ronald Araújo, Darwin Núñez, Rodrigo Bentancur</p>
-          <p>Mejores Equipos: Peñarol, Nacional</p>
-        `
-      },
-      colombia: {
-        name: "Colombia",
-        info: `
-          <p>Mejor Participación: Cuartos de Final (2014)</p>
-          <p>Mejor Jugador Actual: Luis Díaz</p>
-          <p>Otros Destacados: James Rodríguez, Davinson Sánchez</p>
-          <p>Mejores Equipos: Atlético Nacional, Millonarios, América de Cali</p>
-        `
-      },
-      paraguay: {
-        name: "Paraguay",
-        info: `
-          <p>Mejor Participación: Cuartos de Final (2010)</p>
-          <p>Mejor Jugador Actual: Miguel Almirón</p>
-          <p>Otros Destacados: Julio Enciso, Antonio Sanabria</p>
-          <p>Mejores Equipos: Olimpia, Cerro Porteño, Libertad</p>
-        `
-      },
-      japon: {
-        name: "Japón",
-        info: `
-          <p>Mejor Participación: Octavos de Final (2002, 2010, 2018, 2022)</p>
-          <p>Mejor Jugador Actual: Takefusa Kubo</p>
-          <p>Otros Destacados: Kaoru Mitoma, Wataru Endo, Hiroki Ito</p>
-          <p>Mejores Equipos: Kawasaki Frontale, Urawa Reds, Yokohama F. Marinos</p>
-        `
-      },
-      iran: {
-        name: "Irán",
-        info: `
-          <p>Mejor Participación: Fase de Grupos (1978, 1998, 2006, 2014, 2018, 2022)</p>
-          <p>Mejor Jugador Actual: Mehdi Taremi</p>
-          <p>Otros Destacados: Sardar Azmoun, Alireza Jahanbakhsh</p>
-          <p>Mejores Equipos: Persépolis, Esteghlal, Sepahan</p>
-        `
-      },
-      jordan: {
-        name: "Jordania",
-        info: `
-          <p>Mejor Participación: Nunca ha clasificado a un Mundial</p>
-          <p>Mejor Jugador Actual: Mousa Al-Taamari</p>
-          <p>Otros Destacados: Yazan Al-Naimat, Baha' Faisal</p>
-          <p>Mejores Equipos: Al-Faisaly, Al-Wehdat, Al-Jazeera</p>
-        `
-      },
-      coreasur: {
-        name: "Corea del Sur",
-        info: `
-          <p>Mejor Participación: Semifinales (2002)</p>
-          <p>Mejor Jugador Actual: Son Heung-min</p>
-          <p>Otros Destacados: Kim Min-jae, Lee Kang-in, Hwang Hee-chan</p>
-          <p>Mejores Equipos: Jeonbuk Hyundai, Ulsan Hyundai, FC Seoul</p>
-        `
-      },
-      uzbekistan: {
-        name: "Uzbekistán",
-        info: `
-          <p>Mejor Participación: Nunca ha clasificado a un Mundial</p>
-          <p>Mejor Jugador Actual: Eldor Shomurodov</p>
-          <p>Otros Destacados: Oston Urunov, Jaloliddin Masharipov</p>
-          <p>Mejores Equipos: Pakhtakor, Navbahor, Bunyodkor</p>
-        `
-      },
-      australia: {
-        name: "Australia",
-        info: `
-          <p>Mejor Participación: Octavos de Final (2006, 2022)</p>
-          <p>Mejor Jugador Actual: Harry Souttar</p>
-          <p>Otros Destacados: Mathew Ryan, Ajdin Hrustic</p>
-          <p>Mejores Equipos: Sydney FC, Melbourne Victory, Western Sydney Wanderers</p>
-        `
-      },
-      nuevazelan: {
-        name: "Nueva Zelanda",
-        info: `
-          <p>Mejor Participación: Fase de Grupos (1982, 2010)</p>
-          <p>Mejor Jugador Actual: Chris Wood</p>
-          <p>Otros Destacados: Liberato Cacace, Sarpreet Singh</p>
-          <p>Mejores Equipos: Auckland City, Wellington Phoenix, Team Wellington</p>
-        `
-      },
-      marruecos: {
-        name: "Marruecos",
-        info: `
-          <p>Mejor Participación: Semifinales (2022)</p>
-          <p>Mejor Jugador Actual: Achraf Hakimi</p>
-          <p>Otros Destacados: Hakim Ziyech, Yassine Bounou, Sofyan Amrabat</p>
-          <p>Mejores Equipos: Wydad Casablanca, Raja Casablanca, FAR Rabat</p>
-        `
-      },
-      tunez: {
-        name: "Túnez",
-        info: `
-          <p>Mejor Participación: Fase de Grupos (1978, 1998, 2002, 2006, 2018, 2022)</p>
-          <p>Mejor Jugador Actual: Ellyes Skhiri</p>
-          <p>Otros Destacados: Wahbi Khazri, Aïssa Laïdouni</p>
-          <p>Mejores Equipos: Espérance de Tunis, Étoile du Sahel, Club Africain</p>
-        `
-      }
-      
-    };
-    
-    const worldCup2026 = [
-      // Anfitriones (clasificados automáticamente)
-      { pais: "USA", confederacion: "CONCACAF", mundiales: 0, puntos: 0, goles: 0 },
-      { pais: "Canadá", confederacion: "CONCACAF", mundiales: 0, puntos: 0, goles: 0 },
-      { pais: "México", confederacion: "CONCACAF", mundiales: 0, puntos: 0, goles: 0 },
-
-      // CONMEBOL
-      { pais: "Argentina", confederacion: "CONMEBOL", mundiales: 3, puntos: 38, GF: 31 },
-      { pais: "Ecuador", confederacion: "CONMEBOL", mundiales: 0, puntos: 29, GF: 14 },
-      { pais: "Colombia", confederacion: "CONMEBOL", mundiales: 0, puntos: 28, GF: 19 },
-      { pais: "Uruguay", confederacion: "CONMEBOL", mundiales: 2, puntos: 28, GF: 22 },
-      { pais: "Brasil", confederacion: "CONMEBOL", mundiales: 5, puntos: 28, GF: 24 },
-      { pais: "Paraguay", confederacion: "CONMEBOL", mundiales: 0, puntos: 28, GF: 13 },
-
-      // AFC (Asia) 
-      { pais: "Japón",  confederacion: "AFC", mundiales: 0, puntos: 23, GF: 30 }, 
-      { pais: "Irán",  confederacion: "AFC", mundiales: 0, puntos: 23, GF: 19 }, 
-      { pais: "Corea del Sur",  confederacion: "AFC", mundiales: 0, puntos: 22, GF: 20 },
-      { pais: "Uzbekistán",  confederacion: "AFC", mundiales: 0, puntos: 21, GF: 14 }, 
-      { pais: "Australia",  confederacion: "AFC", mundiales: 0, puntos: 19, GF: 16 }, 
-      { pais: "Jordania",  confederacion: "AFC", mundiales: 0, puntos: 16, GF: 16 }, 
-
-      // UEFA 
-
-      // CAF (África) 
-      { pais: "Marruecos", confederacion: "CAF", mundiales: 0, puntos: 21, GF: 21 }, 
-      { pais: "Túnez", confederacion: "CAF", mundiales: 0, puntos: 22, GF: 13 },
-
-      // CONCACAF 
-
-      // OFC 
-      { pais: "Nueva Zelanda", confederacion: "OFC", mundiales: 0, puntos: null, GF: null }
-    ];
-
-    const videos = [
-      "assets/videos/brasil.mp4",
-      "assets/videos/usa.mp4",
-      "assets/videos/argentina.mp4",
-      "assets/videos/can-belgi.mp4",
-      "assets/videos/colombia-japan.mp4",
-      "assets/videos/england-iran.mp4",
-      "assets/videos/jordan-qatar.mp4",
-      "assets/videos/morocco-koreas.mp4",
-      "assets/videos/newzealand.mp4",
-      "assets/videos/tunez-australia.mp4",
-      "assets/videos/uzbekistan-uruguay.mp4",
-      "assets/videos/paraguay.mp4"
-    ];
-
-    const triviaData = [
-      { question: "¿En qué año Estados Unidos organizó por primera vez un Mundial?", 
-        options: ["1990", "1994", "1998"], answer: "1994" },
-      { question: "¿En qué ciudad se jugará la final del Mundial 2026 en Canadá?", 
-        options: ["Toronto", "Vancouver", "Montreal"], answer: "Vancouver" },
-      { question: "¿Cuántas veces México ha organizado un Mundial antes de 2026?", 
-        options: ["1", "2", "3"], answer: "2" },
-      { question: "¿Qué jugador argentino es el máximo goleador histórico de la selección?", 
-        options: ["Diego Maradona", "Lionel Messi", "Gabriel Batistuta"], answer: "Lionel Messi" },
-      { question: "¿En qué año ganó Uruguay su primer Mundial?", 
-        options: ["1930", "1950", "1962"], answer: "1930" },
-      { question: "¿Cuál es el país con más títulos mundiales de Sudamérica?", 
-        options: ["Argentina", "Brasil", "Uruguay"], answer: "Brasil" },
-      { question: "¿Cuál es el mejor resultado histórico de Colombia en un Mundial?", 
-        options: ["Cuartos de final 2014", "Octavos 1990", "Semifinal 2018"], answer: "Cuartos de final 2014" },
-      { question: "¿En qué año clasificó Ecuador por primera vez a un Mundial?", 
-        options: ["1998", "2002", "2006"], answer: "2002" },
-      { question: "¿Cuál es la máxima figura histórica de Paraguay en Mundiales?", 
-        options: ["Roque Santa Cruz", "José Luis Chilavert", "Salvador Cabañas"], answer: "José Luis Chilavert" },
-      { question: "¿Cuál fue la mejor participación de Japón en un Mundial?", 
-        options: ["Octavos de final", "Cuartos de final", "Fase de grupos"], answer: "Octavos de final" },
-      { question: "¿Cuántas veces ha clasificado Irán a un Mundial antes de 2026?", 
-        options: ["3", "5", "6"], answer: "6" },
-      { question: "¿En qué año clasificó Jordania por primera vez a un Mundial?", 
-        options: ["2022", "2026", "2018"], answer: "2026" },
-      { question: "¿Cuál fue la mejor actuación de Corea del Sur en un Mundial?", 
-        options: ["Cuartos de final 2002", "Semifinal 2002", "Octavos 2010"], answer: "Semifinal 2002" },
-      { question: "¿Cuál es el país de Asia Central que debutará en 2026?", 
-        options: ["Irán", "Uzbekistán", "Qatar"], answer: "Uzbekistán" },
-      { question: "¿En qué año Australia cambió de confederación y se unió a la AFC?", 
-        options: ["2006", "2010", "2014"], answer: "2006" },
-      { question: "¿Qué selección oceánica clasificó a 2026 junto a Australia?", 
-        options: ["Islas Salomón", "Nueva Zelanda", "Papúa Nueva Guinea"], answer: "Nueva Zelanda" },
-      { question: "¿En qué Mundial Marruecos alcanzó las semifinales?", 
-        options: ["2018", "2022", "2002"], answer: "2022" },
-      { question: "¿Cuántas veces ha clasificado Túnez a un Mundial antes de 2026?", 
-        options: ["4", "6", "8"], answer: "6" }
-
-    ];
-    let currentCountry = null;
-    let activeTargetEntity = null;
-    let lastVideoIndex = -1;
-    let triviaIndex = 0; let triviaQuestions = [];
-
-    document.getElementById("backBtn").addEventListener("click", () => { window.location.href = "index.html"; });
-    function resetButtons() { 
-      mainButtons.forEach((btn, i) => { btn.style.display = "inline-block"; }); 
-    }
-
-    function showInfo(country) { 
-      if (!countryData[country]) 
-      return; 
-      infoBox.style.display = "block"; 
-      triviaBox.style.display = "none"; 
-      const countryName = countryData[country].name;
-      infoBox.innerHTML = `<h3>Datos: ${countryName}</h3>${countryData[country].info}`; 
-    }
-
-    function showStats() { 
-      hideAll(); 
-      const statsBox = document.getElementById("statsBox"); 
-      statsBox.innerHTML = `<div class="tables-grid"><div class="column">
-        ${crearTablaConfederacion('CONMEBOL', 'Sudamérica', '6+1 cupos', 'conmebol')}
-        ${crearTablaConfederacion('AFC', 'Asia', '8+1 cupos', 'afc')}
-        ${crearTablaConfederacion('UEFA', 'Europa', '16 cupos', 'uefa')}</div><div class="column">
-        ${crearTablaConfederacion('CAF', 'África', '9+1 cupos', 'caf')}
-        ${crearTablaConfederacion('CONCACAF', 'Norteamérica', '3+2 cupos', 'concacaf')}
-        ${crearTablaConfederacion('OFC', 'Oceanía', '1+1 cupos', 'ofc')}</div></div>`; 
-        statsBox.style.display = "block"; 
-    }
-    
-    function crearTablaConfederacion(confederacion, titulo, cupos, colorClass) { 
-      const equiposFiltrados = worldCup2026.filter(team => team.confederacion === confederacion); 
-      const tableRows = equiposFiltrados.map(team => 
-        `<tr><td>${team.pais}
-          </td><td>${team.mundiales}
-            </td><td>${team.puntos || 'N/A'}
-              </td><td>${team.GF || team.goles || 'N/A'}</td></tr>`).join(""); 
-      
-      return `<div class="confederacion-table ${colorClass}"><h3>${titulo} <small>(${cupos})</small></h3><table><tr><th>País</th><th>Mundiales Ganados</th><th>Puntos</th><th>Goles a Favor</th></tr>${tableRows}</table></div>`; 
-    }
-
-    function showVideo() { 
-      hideAll(); 
-      const videoBox = document.getElementById("videoBox"); 
-      const player = document.getElementById("videoPlayer"); 
-
-      let randomIndex;
-
-      randomIndex = Math.floor(Math.random() * videos.length);
-
-      if (videos.length > 1 && randomIndex === lastVideoIndex) {
-        do {
-          console.log("Video repetido, eligiendo otro...");
-          randomIndex = Math.floor(Math.random() * videos.length);
-        } while (randomIndex === lastVideoIndex);
-      }
-
-      lastVideoIndex = randomIndex;
-      const randomVideo = videos[randomIndex]; 
-
-      player.src = randomVideo; 
-      player.play(); 
-      videoBox.style.display = "block"; 
-      videoPlayer.style.filter = "none"; 
-    }
-    
-    function togglePlayPause() { 
-      videoPlayer.paused ? videoPlayer.play() : videoPlayer.pause(); 
-    }
-    
-    function applyFilter1() { videoPlayer.style.filter = "grayscale(100%)"; }
-    function applyFilter2() { videoPlayer.style.filter = "sepia(100%)"; }
-    function applyFilter3() { videoPlayer.style.filter = "invert(100%)"; }
-
-    function closeVideo() { 
-      videoBox.style.display = "none"; videoPlayer.pause(); 
-    }
-    
-    document.getElementById('btn4').addEventListener('click', () => {
-      if (activeTargetEntity) {
-        animaModel(activeTargetEntity); 
-      }
-    });
-    
-
-    AFRAME.registerComponent('auto-rotate', {
-      schema: {
-        enabled: {type: 'boolean', default: false},
-        speed: {type: 'number', default: 0.025} 
-      },
-
-      tick: function () {
-        if (!this.data.enabled) { return; }
-        this.el.object3D.rotation.y += this.data.speed;
-      }
-    });
-
-    function animaModel(targetEntity) {
-      const modelWrapper = targetEntity.querySelector('.model-wrapper');
-      const modelEl = targetEntity.querySelector('a-gltf-model');
-      
-      if (!modelWrapper || !modelEl) return;
-
-      if (modelEl.hasLoaded) {
-        checkAndPlayAnimation(modelEl, modelWrapper); 
-      } else {
-        modelEl.addEventListener('model-loaded', function onModelLoaded() {
-          checkAndPlayAnimation(modelEl, modelWrapper);
-        }, { once: true });
-      }
-    } 
-
-    function checkAndPlayAnimation(modelEl, modelWrapper) {
-      const gltfData = modelEl.components['gltf-model']?.model;
-
-      if (gltfData && gltfData.animations && gltfData.animations.length > 0) {
-        console.log("Activando animación INTERNA");
-        modelWrapper.setAttribute('auto-rotate', 'enabled: false');
-        modelEl.setAttribute("animation-mixer", { clip: '*', loop: "repeat" });
-      } else {
-        console.log("Activando giro MANUAL (auto-rotate)");
-        modelEl.removeAttribute('animation-mixer');
-        modelWrapper.setAttribute('auto-rotate', 'enabled: true'); 
-      }
-    }
-
-    function showTrivia() { 
-      hideAll(); triviaIndex = 0; 
-      triviaQuestions = [...triviaData].sort(() => 0.5 - Math.random()).slice(0, 5); 
-      loadTriviaQuestion(); triviaBox.style.display = "block"; 
-    }
-    
-    function loadTriviaQuestion() { 
-      if (triviaIndex >= triviaQuestions.length) { 
-        triviaBox.style.display = "none"; 
-        return;
-      } 
-      
-      const questionData = triviaQuestions[triviaIndex]; 
-      triviaQuestion.textContent = questionData.question; 
-      const optionsDiv = document.getElementById("triviaOptions"); 
-      optionsDiv.innerHTML = ""; triviaResult.textContent = ""; 
-      questionData.options.forEach(option => { const btn = document.createElement("button"); 
-      btn.textContent = option; btn.onclick = () => checkAnswer(option, questionData.answer); 
-      optionsDiv.appendChild(btn); }); 
-    }
-
-    function checkAnswer(selected, correct) { 
-      triviaResult.textContent = selected === correct ? 
-        "✅ ¡Correcto!" : `❌ Incorrecto. La respuesta era: ${correct}`; 
-      triviaIndex++; setTimeout(loadTriviaQuestion, 1500); 
-    }
-    
-    function hideAll() { 
-      statsBox.style.display = "none"; 
-      videoBox.style.display = "none"; 
-      triviaBox.style.display = "none"; 
-      videoPlayer.pause(); 
-      videoPlayer.currentTime = 0; 
-    }
-
-    function initARLogic() {
-      const targets = document.querySelectorAll("[mindar-image-target]");
-      document.getElementById("backBtn").style.display = "block";
-
-      targets.forEach(target => {
-        target.addEventListener("targetFound", event => {
-          const country = event.target.dataset.country;
-
-          console.log("🎯 Detectado:", country);
-          currentCountry = event.target.dataset.country; 
-          activeTargetEntity = event.target;
-
-          const model = event.target.querySelector("a-gltf-model"); 
-          model.setAttribute("visible", "true");
-          showInfo(currentCountry);
-          buttonsPanel.style.display = "flex";
-          resetButtons();
-        });
-
-        target.addEventListener("targetLost", event => {
-          const country = event.target.dataset.country;
-          const modelWrapper = event.target.querySelector(".model-wrapper");
-          const model = event.target.querySelector("a-gltf-model");
-
-          console.log("❌ Perdido:", country);
-          currentCountry = null;
-          activeTargetEntity = null;
-          
-          if (model) {
-            model.setAttribute("visible", "false");
-            model.removeAttribute('animation-mixer'); 
-          }
-          if (modelWrapper) {
-            modelWrapper.setAttribute('auto-rotate', 'enabled: false'); 
-            modelWrapper.setAttribute('rotation', '0 0 0'); 
-          }
-          
-          buttonsPanel.style.display = "none";
-          infoBox.style.display = "none";
-          model.removeAttribute('animation-mixer');
-          model.removeAttribute('animation');
-        });
-      });
-    }
-
-    startBtn.addEventListener("click", () => {
-      document.getElementById("intro").style.display = "none";
-      document.querySelector("header").style.display = "none";
-      document.querySelector("footer").style.display = "none";
-      document.getElementById('ar-header').style.display = 'flex';
-      document.getElementById('ar-footer').style.display = 'block';
-
-      videoPlayer.pause();
-
-      arContainer.classList.add("active");
-      
-
-      arContainer.innerHTML = `
-        <a-scene mindar-image="imageTargetSrc: assets/targets/targets.mind; autoStart: true;" 
-                 color-space="sRGB" 
-                 renderer="colorManagement: true" vr-mode-ui="enabled: false"
-                 device-orientation-permission-ui="enabled: false">
-          
-          <a-assets timeout="10000">
-            <a-asset-item id="model-brasil" src="assets/modelos/brasilao/cristeredenter.glb"></a-asset-item>
-            <a-asset-item id="model-australia" src="assets/modelos/austria/austria.glb"></a-asset-item>
-            <a-asset-item id="model-coreasur" src="assets/modelos/coreaS/coreaS.glb"></a-asset-item>
-            <a-asset-item id="model-usa" src="assets/modelos/eagle/scene.glb"></a-asset-item>
-            <a-asset-item id="model-ecuador" src="assets/modelos/flag/scene.glb"></a-asset-item>
-            <a-asset-item id="model-iran" src="assets/modelos/iran/scene.glb"></a-asset-item>
-            <a-asset-item id="model-argentina" src="assets/modelos/mate/scene.glb"></a-asset-item>
-            <a-asset-item id="model-mexico" src="assets/modelos/mexico/scene.glb"></a-asset-item>
-            <a-asset-item id="model-canada" src="assets/modelos/moose/scene.gltf"></a-asset-item>
-            <a-asset-item id="model-marruecos" src="assets/modelos/morocco/scene.glb"></a-asset-item>
-            <a-asset-item id="model-nuevazelan" src="assets/modelos/NZ/NZ.gltf"></a-asset-item>
-            <a-asset-item id="model-paraguay" src="assets/modelos/para/scene.glb"></a-asset-item>
-            <a-asset-item id="model-jordan" src="assets/modelos/petra/scene.glb"></a-asset-item> 
-            <a-asset-item id="model-japon" src="assets/modelos/suchi/scene.glb"></a-asset-item>
-            <a-asset-item id="model-tunez" src="assets/modelos/tunez/scene.glb"></a-asset-item>           
-            <a-asset-item id="model-uruguay" src="assets/modelos/Uru/scene.glb"></a-asset-item> 
-            <a-asset-item id="model-uzbekistan" src="assets/modelos/uzbe/scene.glb"></a-asset-item>
-            <a-asset-item id="model-colombia" src="assets/modelos/colombia/scene.gltf"></a-asset-item>
-            
-          </a-assets>
-
-          <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-          <a-entity mindar-image-target="targetIndex: 0" data-country="mexico">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-mexico" scale="0.12 0.12 0.12" position="0 0.3 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-          
-          <a-entity mindar-image-target="targetIndex: 1" data-country="mexico">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-mexico" scale="0.12 0.12 0.12" position="0 0.3 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-          
-          <a-entity mindar-image-target="targetIndex: 2" data-country="mexico">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-mexico" scale="0.12 0.12 0.12" position="0 0.3 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 3" data-country="usa">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-usa" scale="0.3 0.3 0.3" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-          
-          <a-entity mindar-image-target="targetIndex: 4" data-country="usa">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-usa" scale="0.3 0.3 0.3" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-            
-          <a-entity mindar-image-target="targetIndex: 5" data-country="australia">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-australia" scale="0.15 0.15 0.15" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 6" data-country="australia">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-australia" scale="0.15 0.15 0.15" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 7" data-country="brasil">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-brasil" scale="0.012 0.012 0.012" position="0 0.35 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-          
-          <a-entity mindar-image-target="targetIndex: 8" data-country="brasil">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-brasil" scale="0.012 0.012 0.012" position="0 0.35 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 9" data-country="iran">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-iran" scale="0.065 0.065 0.065" position="0 0.46 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 10" data-country="iran">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-iran" scale="0.065 0.065 0.065" position="0 0.46 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 11" data-country="japon">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-japon" scale="0.01 0.01 0.01" position="0 0.3 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 12" data-country="japon">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-japon" scale="0.01 0.01 0.01" position="0 0.3 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 13" data-country="argentina">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-argentina" scale="3.5 3.5 3.5" position="0 0.3 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-      
-          <a-entity mindar-image-target="targetIndex: 14" data-country="argentina">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-argentina" scale="5 5 5" position="0 0.3 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 15" data-country="canada">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-canada" scale="0.35 0.35 0.35" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-            
-          <a-entity mindar-image-target="targetIndex: 16" data-country="canada">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-canada" scale="0.35 0.35 0.35" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 17" data-country="uzbekistan">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-uzbekistan" scale="0.15 0.15 0.25" position="0 0.35 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-            
-          <a-entity mindar-image-target="targetIndex: 18" data-country="uzbekistan">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-uzbekistan" scale="0.15 0.15 0.15" position="0 0.35 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 19" data-country="jordan">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-jordan" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-            
-          <a-entity mindar-image-target="targetIndex: 20" data-country="jordan">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-jordan" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 21" data-country="nuevazelan">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-nuevazelan" scale="0.12 0.12 0.12" position="0 0.35 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-            
-          <a-entity mindar-image-target="targetIndex: 22" data-country="nuevazelan">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-nuevazelan" scale="0.12 0.12 0.12" position="0 0.35 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 23" data-country="ecuador">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-ecuador" scale="0.12 0.12 0.12" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-  
-          <a-entity mindar-image-target="targetIndex: 24" data-country="ecuador">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-ecuador" scale="0.12 0.12 0.12" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 25" data-country="coreasur">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-coreasur" scale="0.11 0.11 0.115" position="0 0.33 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-            
-          <a-entity mindar-image-target="targetIndex: 26" data-country="coreasur">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-coreasur" scale="0.11 0.11 0.11" position="0 0.33 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 27" data-country="colombia">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-colombia" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-            
-          <a-entity mindar-image-target="targetIndex: 28" data-country="colombia">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-colombia" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 29" data-country="uruguay">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-uruguay" scale="0.06 0.06 0.06" position="0 0.5 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-            
-          <a-entity mindar-image-target="targetIndex: 30" data-country="uruguay">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-uruguay" scale="0.06 0.06 0.06" position="0 0.5 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 31" data-country="paraguay">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-paraguay" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-            
-          <a-entity mindar-image-target="targetIndex: 32" data-country="paraguay">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-paraguay" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 33" data-country="marruecos">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-marruecos" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-            
-          <a-entity mindar-image-target="targetIndex: 34" data-country="marruecos">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-marruecos" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 35" data-country="tunez">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-tunez" scale="0.11 0.11 0.11" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-            
-          <a-entity mindar-image-target="targetIndex: 36" data-country="tunez">
-            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
-              <a-gltf-model src="#model-tunez" scale="0.11 0.11 0.11" position="0 0.4 0" visible="false"></a-gltf-model>
-            </a-entity>
-          </a-entity>
-
-      `;
-
-      setTimeout(() => {
-        window.dispatchEvent(new Event("resize"));
-      }, 300);
-
-      initARLogic();
-      resetButtons();
-    });
-  </script>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <h4>&copy; LMAD 2025 | Procesamiento De Imagenes | </h4>
+      <h4>[ Mundial AR 2026 ]</h4>
+    </div>
+  </footer>
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+  <script>
+    const startBtn = document.getElementById("startBtn");
+    const intro = document.getElementById("intro");
+    const arContainer = document.getElementById("ar-container");
+    const buttonsPanel = document.getElementById("buttons-panel");
+    const infoBox = document.getElementById("infoBox");
+    const statsBox = document.getElementById("statsBox");
+    const triviaBox = document.getElementById("triviaBox");
+    const triviaQuestion = document.getElementById("triviaQuestion");
+    const triviaResult = document.getElementById("triviaResult");
+    const videoBox = document.getElementById("videoBox");
+    const videoPlayer = document.getElementById("videoPlayer");
+    const videoButtons = document.getElementById("videoButtons");
+    const btn4 = document.getElementById("btn4");
+    const mainButtons = [btn4];
+
+    const countryData = {
+      argentina: {
+        name: "Argentina",
+        info: `
+          <p>Mejor Jugador Actual: Lionel Messi
+          Otros Destacados: Julián Álvarez, Emiliano Martínez
+          Mejores Equipos: River Plate, Boca Juniors, Estudiantes</p>
+          `
+      },
+      mexico: {
+        name: "México",
+        info: `
+          <p>Mejor Participación: Cuartos de Final
+          <p>Mejor Jugador Actual: Edson Álvarez
+          <p>Otros Destacados: Santiago Giménez, Guillermo Ochoa</p>
+          <p>Mejores Equipos: América, Chivas, Monterrey</p>
+        `
+      },
+      usa: {
+        name: "USA",
+        info: `
+          <p>Mejor Participación: Tercer Lugar</p>
+          <p>Mejor Jugador Actual: Christian Pulisic</p>
+          <p>Otros Destacados: Weston McKennie, Giovanni Reyna</p>
+          <p>Mejores Equipos: Columbus Crew, Inter Miami, LAFC</p>
+          `
+      },
+      brasil: {
+        name: "Brasil",
+        info: `
+          <p>Mejor Jugador Actual: Vinicius Jr.</p>
+          <p>Otros Destacados: Rodrygo, Marquinhos</p>
+          <p>Mejores Equipos: Flamengo, Palmeiras, São Paulo</p>
+        `
+      },
+      canada: {
+        name: "Canadá",
+        info: `
+          <p>Mejor Participación: Fase de Grupos (1986, 2022)</p>
+          <p>Mejor Jugador Actual: Alphonso Davies</p>
+          <p>Otros Destacados: Jonathan David, Tajon Buchanan</p>
+          <p>Mejores Equipos: Toronto FC, CF Montréal, Vancouver Whitecaps</p>
+        `
+      },
+      ecuador: {
+        name: "Ecuador",
+        info: `
+          <p>Mejor Participación: Octavos de Final (2006)</p>
+          <p>Mejor Jugador Actual: Moisés Caicedo</p>
+          <p>Otros Destacados: Piero Hincapié, Enner Valencia</p>
+          <p>Mejores Equipos: Barcelona SC, Emelec, Independiente del Valle</p>
+        `
+      },
+      uruguay: {
+        name: "Uruguay",
+        info: `
+          <p>Campeón Mundial: 1930, 1950</p>
+          <p>Mejor Jugador Actual: Federico Valverde</p>
+          <p>Otros Destacados: Ronald Araújo, Darwin Núñez, Rodrigo Bentancur</p>
+          <p>Mejores Equipos: Peñarol, Nacional</p>
+        `
+      },
+      colombia: {
+        name: "Colombia",
+        info: `
+          <p>Mejor Participación: Cuartos de Final (2014)</p>
+          <p>Mejor Jugador Actual: Luis Díaz</p>
+          <p>Otros Destacados: James Rodríguez, Davinson Sánchez</p>
+          <p>Mejores Equipos: Atlético Nacional, Millonarios, América de Cali</p>
+        `
+      },
+      paraguay: {
+        name: "Paraguay",
+        info: `
+          <p>Mejor Participación: Cuartos de Final (2010)</p>
+          <p>Mejor Jugador Actual: Miguel Almirón</p>
+          <p>Otros Destacados: Julio Enciso, Antonio Sanabria</p>
+          <p>Mejores Equipos: Olimpia, Cerro Porteño, Libertad</p>
+        `
+      },
+      japon: {
+        name: "Japón",
+        info: `
+          <p>Mejor Participación: Octavos de Final (2002, 2010, 2018, 2022)</p>
+          <p>Mejor Jugador Actual: Takefusa Kubo</p>
+          <p>Otros Destacados: Kaoru Mitoma, Wataru Endo, Hiroki Ito</p>
+          <p>Mejores Equipos: Kawasaki Frontale, Urawa Reds, Yokohama F. Marinos</p>
+        `
+      },
+      iran: {
+        name: "Irán",
+        info: `
+          <p>Mejor Participación: Fase de Grupos (1978, 1998, 2006, 2014, 2018, 2022)</p>
+          <p>Mejor Jugador Actual: Mehdi Taremi</p>
+          <p>Otros Destacados: Sardar Azmoun, Alireza Jahanbakhsh</p>
+          <p>Mejores Equipos: Persépolis, Esteghlal, Sepahan</p>
+        `
+      },
+      jordan: {
+        name: "Jordania",
+        info: `
+          <p>Mejor Participación: Nunca ha clasificado a un Mundial</p>
+          <p>Mejor Jugador Actual: Mousa Al-Taamari</p>
+          <p>Otros Destacados: Yazan Al-Naimat, Baha' Faisal</p>
+          <p>Mejores Equipos: Al-Faisaly, Al-Wehdat, Al-Jazeera</p>
+        `
+      },
+      coreasur: {
+        name: "Corea del Sur",
+        info: `
+          <p>Mejor Participación: Semifinales (2002)</p>
+          <p>Mejor Jugador Actual: Son Heung-min</p>
+          <p>Otros Destacados: Kim Min-jae, Lee Kang-in, Hwang Hee-chan</p>
+          <p>Mejores Equipos: Jeonbuk Hyundai, Ulsan Hyundai, FC Seoul</p>
+        `
+      },
+      uzbekistan: {
+        name: "Uzbekistán",
+        info: `
+          <p>Mejor Participación: Nunca ha clasificado a un Mundial</p>
+          <p>Mejor Jugador Actual: Eldor Shomurodov</p>
+          <p>Otros Destacados: Oston Urunov, Jaloliddin Masharipov</p>
+          <p>Mejores Equipos: Pakhtakor, Navbahor, Bunyodkor</p>
+        `
+      },
+      australia: {
+        name: "Australia",
+        info: `
+          <p>Mejor Participación: Octavos de Final (2006, 2022)</p>
+          <p>Mejor Jugador Actual: Harry Souttar</p>
+          <p>Otros Destacados: Mathew Ryan, Ajdin Hrustic</p>
+          <p>Mejores Equipos: Sydney FC, Melbourne Victory, Western Sydney Wanderers</p>
+        `
+      },
+      nuevazelan: {
+        name: "Nueva Zelanda",
+        info: `
+          <p>Mejor Participación: Fase de Grupos (1982, 2010)</p>
+          <p>Mejor Jugador Actual: Chris Wood</p>
+          <p>Otros Destacados: Liberato Cacace, Sarpreet Singh</p>
+          <p>Mejores Equipos: Auckland City, Wellington Phoenix, Team Wellington</p>
+        `
+      },
+      marruecos: {
+        name: "Marruecos",
+        info: `
+          <p>Mejor Participación: Semifinales (2022)</p>
+          <p>Mejor Jugador Actual: Achraf Hakimi</p>
+          <p>Otros Destacados: Hakim Ziyech, Yassine Bounou, Sofyan Amrabat</p>
+          <p>Mejores Equipos: Wydad Casablanca, Raja Casablanca, FAR Rabat</p>
+        `
+      },
+      tunez: {
+        name: "Túnez",
+        info: `
+          <p>Mejor Participación: Fase de Grupos (1978, 1998, 2002, 2006, 2018, 2022)</p>
+          <p>Mejor Jugador Actual: Ellyes Skhiri</p>
+          <p>Otros Destacados: Wahbi Khazri, Aïssa Laïdouni</p>
+          <p>Mejores Equipos: Espérance de Tunis, Étoile du Sahel, Club Africain</p>
+        `
+      }
+      
+    };
+    
+    const worldCup2026 = [
+      // Anfitriones (clasificados automáticamente)
+      { pais: "USA", confederacion: "CONCACAF", mundiales: 0, puntos: 0, goles: 0 },
+      { pais: "Canadá", confederacion: "CONCACAF", mundiales: 0, puntos: 0, goles: 0 },
+      { pais: "México", confederacion: "CONCACAF", mundiales: 0, puntos: 0, goles: 0 },
+
+      // CONMEBOL
+      { pais: "Argentina", confederacion: "CONMEBOL", mundiales: 3, puntos: 38, GF: 31 },
+      { pais: "Ecuador", confederacion: "CONMEBOL", mundiales: 0, puntos: 29, GF: 14 },
+      { pais: "Colombia", confederacion: "CONMEBOL", mundiales: 0, puntos: 28, GF: 19 },
+      { pais: "Uruguay", confederacion: "CONMEBOL", mundiales: 2, puntos: 28, GF: 22 },
+      { pais: "Brasil", confederacion: "CONMEBOL", mundiales: 5, puntos: 28, GF: 24 },
+      { pais: "Paraguay", confederacion: "CONMEBOL", mundiales: 0, puntos: 28, GF: 13 },
+
+      // AFC (Asia) 
+      { pais: "Japón",  confederacion: "AFC", mundiales: 0, puntos: 23, GF: 30 }, 
+      { pais: "Iran",  confederacion: "AFC", mundiales: 0, puntos: 23, GF: 19 }, 
+      { pais: "Corea del Sur",  confederacion: "AFC", mundiales: 0, puntos: 22, GF: 20 },
+      { pais: "Uzbekistan",  confederacion: "AFC", mundiales: 0, puntos: 21, GF: 14 }, 
+      { pais: "Australia",  confederacion: "AFC", mundiales: 0, puntos: 19, GF: 16 }, 
+      { pais: "Jordania",  confederacion: "AFC", mundiales: 0, puntos: 16, GF: 16 }, 
+
+      // UEFA 
+
+      // CAF (África) 
+      { pais: "Marruecos", confederacion: "CAF", mundiales: 0, puntos: 21, GF: 21 }, 
+      { pais: "Túnez", confederacion: "CAF", mundiales: 0, puntos: 22, GF: 13 },
+
+      // CONCACAF 
+
+      // OFC 
+      { pais: "Nueva Zelanda", confederacion: "OFC", mundiales: 0, puntos: null, GF: null }
+    ];
+
+    const videos = [
+      "assets/videos/brasil.mp4",
+      "assets/videos/usa.mp4",
+      "assets/videos/argentina.mp4",
+      "assets/videos/can-belgi.mp4",
+      "assets/videos/colombia-japan.mp4",
+      "assets/videos/england-iran.mp4",
+      "assets/videos/jordan-qatar.mp4",
+      "assets/videos/morocco-koreas.mp4",
+      "assets/videos/newzealand.mp4",
+      "assets/videos/tunez-australia.mp4",
+      "assets/videos/uzbekistan-uruguay.mp4",
+      "assets/videos/paraguay.mp4"
+    ];
+
+    const triviaData = [
+      { question: "¿En qué año Estados Unidos organizó por primera vez un Mundial?", 
+        options: ["1990", "1994", "1998"], answer: "1994" },
+      { question: "¿En qué ciudad se jugará la final del Mundial 2026 en Canadá?", 
+        options: ["Toronto", "Vancouver", "Montreal"], answer: "Vancouver" },
+      { question: "¿Cuántas veces México ha organizado un Mundial antes de 2026?", 
+        options: ["1", "2", "3"], answer: "2" },
+      { question: "¿Qué jugador argentino es el máximo goleador histórico de la selección?", 
+        options: ["Diego Maradona", "Lionel Messi", "Gabriel Batistuta"], answer: "Lionel Messi" },
+      { question: "¿En qué año ganó Uruguay su primer Mundial?", 
+        options: ["1930", "1950", "1962"], answer: "1930" },
+      { question: "¿Cuál es el país con más títulos mundiales de Sudamérica?", 
+        options: ["Argentina", "Brasil", "Uruguay"], answer: "Brasil" },
+      { question: "¿Cuál es el mejor resultado histórico de Colombia en un Mundial?", 
+        options: ["Cuartos de final 2014", "Octavos 1990", "Semifinal 2018"], answer: "Cuartos de final 2014" },
+      { question: "¿En qué año clasificó Ecuador por primera vez a un Mundial?", 
+        options: ["1998", "2002", "2006"], answer: "2002" },
+      { question: "¿Cuál es la máxima figura histórica de Paraguay en Mundiales?", 
+        options: ["Roque Santa Cruz", "José Luis Chilavert", "Salvador Cabañas"], answer: "José Luis Chilavert" },
+      { question: "¿Cuál fue la mejor participación de Japón en un Mundial?", 
+        options: ["Octavos de final", "Cuartos de final", "Fase de grupos"], answer: "Octavos de final" },
+      { question: "¿Cuántas veces ha clasificado Irán a un Mundial antes de 2026?", 
+        options: ["3", "5", "6"], answer: "6" },
+      { question: "¿En qué año clasificó Jordania por primera vez a un Mundial?", 
+        options: ["2022", "2026", "2018"], answer: "2026" },
+      { question: "¿Cuál fue la mejor actuación de Corea del Sur en un Mundial?", 
+        options: ["Cuartos de final 2002", "Semifinal 2002", "Octavos 2010"], answer: "Semifinal 2002" },
+      { question: "¿Cuál es el país de Asia Central que debutará en 2026?", 
+        options: ["Irán", "Uzbekistán", "Qatar"], answer: "Uzbekistán" },
+      { question: "¿En qué año Australia cambió de confederación y se unió a la AFC?", 
+        options: ["2006", "2010", "2014"], answer: "2006" },
+      { question: "¿Qué selección oceánica clasificó a 2026 junto a Australia?", 
+        options: ["Islas Salomón", "Nueva Zelanda", "Papúa Nueva Guinea"], answer: "Nueva Zelanda" },
+      { question: "¿En qué Mundial Marruecos alcanzó las semifinales?", 
+        options: ["2018", "2022", "2002"], answer: "2022" },
+      { question: "¿Cuántas veces ha clasificado Túnez a un Mundial antes de 2026?", 
+        options: ["4", "6", "8"], answer: "6" }
+
+    ];
+    let currentCountry = null;
+    let activeTargetEntity = null;
+    let lastVideoIndex = -1;
+    let triviaIndex = 0; let triviaQuestions = [];
+
+    document.getElementById("backBtn").addEventListener("click", () => { window.location.href = "index.html"; });
+    function resetButtons() { 
+      mainButtons.forEach((btn, i) => { btn.style.display = "inline-block"; }); 
+    }
+
+    function showInfo(country) { 
+      if (!countryData[country]) 
+      return; 
+      infoBox.style.display = "block"; 
+      triviaBox.style.display = "none"; 
+      const countryName = countryData[country].name;
+      infoBox.innerHTML = `<h3>Datos: ${countryName}</h3>${countryData[country].info}`; 
+    }
+
+    function showStats() { 
+      hideAll(); 
+      const statsBox = document.getElementById("statsBox"); 
+      statsBox.innerHTML = `<div class="tables-grid"><div class="column">
+        ${crearTablaConfederacion('CONMEBOL', 'Sudamérica', '6+1 cupos', 'conmebol')}
+        ${crearTablaConfederacion('AFC', 'Asia', '8+1 cupos', 'afc')}
+        ${crearTablaConfederacion('UEFA', 'Europa', '16 cupos', 'uefa')}</div><div class="column">
+        ${crearTablaConfederacion('CAF', 'África', '9+1 cupos', 'caf')}
+        ${crearTablaConfederacion('CONCACAF', 'Norteamérica', '3+2 cupos', 'concacaf')}
+        ${crearTablaConfederacion('OFC', 'Oceanía', '1+1 cupos', 'ofc')}</div></div>`; 
+        statsBox.style.display = "block"; 
+    }
+    
+    function crearTablaConfederacion(confederacion, titulo, cupos, colorClass) { 
+      const equiposFiltrados = worldCup2026.filter(team => team.confederacion === confederacion); 
+      const tableRows = equiposFiltrados.map(team => 
+        `<tr><td>${team.pais}
+          </td><td>${team.mundiales}
+            </td><td>${team.puntos || 'N/A'}
+              </td><td>${team.GF || team.goles || 'N/A'}</td></tr>`).join(""); 
+      
+      return `<div class="confederacion-table ${colorClass}"><h3>${titulo} <small>(${cupos})</small></h3><table><tr><th>País</th><th>Mundiales Ganados</th><th>Puntos</th><th>Goles a Favor</th></tr>${tableRows}</table></div>`; 
+    }
+
+    function showVideo() { 
+      hideAll(); 
+      const videoBox = document.getElementById("videoBox"); 
+      const player = document.getElementById("videoPlayer"); 
+
+      let randomIndex;
+
+      randomIndex = Math.floor(Math.random() * videos.length);
+
+      if (videos.length > 1 && randomIndex === lastVideoIndex) {
+        do {
+          console.log("Video repetido, eligiendo otro...");
+          randomIndex = Math.floor(Math.random() * videos.length);
+        } while (randomIndex === lastVideoIndex);
+      }
+
+      lastVideoIndex = randomIndex;
+      const randomVideo = videos[randomIndex]; 
+
+      player.src = randomVideo; 
+      player.play(); 
+      videoBox.style.display = "block"; 
+      videoPlayer.style.filter = "none"; 
+    }
+    
+    function togglePlayPause() { 
+      videoPlayer.paused ? videoPlayer.play() : videoPlayer.pause(); 
+    }
+    
+    function applyFilter1() { videoPlayer.style.filter = "grayscale(100%)"; }
+    function applyFilter2() { videoPlayer.style.filter = "sepia(100%)"; }
+    function applyFilter3() { videoPlayer.style.filter = "invert(100%)"; }
+
+    function closeVideo() { 
+      videoBox.style.display = "none"; videoPlayer.pause(); 
+    }
+    
+    document.getElementById('btn4').addEventListener('click', () => {
+      if (activeTargetEntity) {
+        animaModel(activeTargetEntity); 
+      }
+    });
+    
+
+    AFRAME.registerComponent('auto-rotate', {
+      schema: {
+        enabled: {type: 'boolean', default: false},
+        speed: {type: 'number', default: 0.025} 
+      },
+
+      tick: function () {
+        if (!this.data.enabled) { return; }
+        this.el.object3D.rotation.y += this.data.speed;
+      }
+    });
+
+    function animaModel(targetEntity) {
+      const modelWrapper = targetEntity.querySelector('.model-wrapper');
+      const modelEl = targetEntity.querySelector('a-gltf-model');
+      
+      if (!modelWrapper || !modelEl) return;
+
+      if (modelEl.hasLoaded) {
+        checkAndPlayAnimation(modelEl, modelWrapper); 
+      } else {
+        modelEl.addEventListener('model-loaded', function onModelLoaded() {
+          checkAndPlayAnimation(modelEl, modelWrapper);
+        }, { once: true });
+      }
+    }
+
+    function checkAndPlayAnimation(modelEl, modelWrapper) {
+      const gltfData = modelEl.components['gltf-model']?.model;
+
+      if (gltfData && gltfData.animations && gltfData.animations.length > 0) {
+        console.log("Activando animación INTERNA");
+        modelWrapper.setAttribute('auto-rotate', 'enabled: false');
+        modelEl.setAttribute("animation-mixer", { clip: '*', loop: "repeat" });
+      } else {
+        console.log("Activando giro MANUAL (auto-rotate)");
+        modelEl.removeAttribute('animation-mixer');
+        modelWrapper.setAttribute('auto-rotate', 'enabled: true'); 
+      }
+    }
+
+    function showTrivia() { 
+      hideAll(); triviaIndex = 0; 
+      triviaQuestions = [...triviaData].sort(() => 0.5 - Math.random()).slice(0, 5); 
+      loadTriviaQuestion(); triviaBox.style.display = "block"; 
+    }
+    
+    function loadTriviaQuestion() { 
+      if (triviaIndex >= triviaQuestions.length) { 
+        triviaBox.style.display = "none"; 
+        return;
+      } 
+      
+      const questionData = triviaQuestions[triviaIndex]; 
+      triviaQuestion.textContent = questionData.question; 
+      const optionsDiv = document.getElementById("triviaOptions"); 
+      optionsDiv.innerHTML = ""; triviaResult.textContent = ""; 
+      questionData.options.forEach(option => { const btn = document.createElement("button"); 
+      btn.textContent = option; btn.onclick = () => checkAnswer(option, questionData.answer); 
+      optionsDiv.appendChild(btn); }); 
+    }
+
+    function checkAnswer(selected, correct) { 
+      triviaResult.textContent = selected === correct ? 
+        "✅ ¡Correcto!" : `❌ Incorrecto. La respuesta era: ${correct}`; 
+      triviaIndex++; setTimeout(loadTriviaQuestion, 1500); 
+    }
+    
+    function hideAll() { 
+     statsBox.style.display = "none"; 
+    videoBox.style.display = "none"; 
+    triviaBox.style.display = "none"; 
+    videoPlayer.pause(); 
+    videoPlayer.currentTime = 0; 
+
+    // OCULTA LOS ELEMENTOS DE LA INTERFAZ AR
+    document.getElementById('ar-header').style.display = 'none';
+    document.getElementById('ar-footer').style.display = 'none';
+    buttonsPanel.style.display = "none";
+    infoBox.style.display = "none";
+    }
+
+    function initARLogic() {
+      const targets = document.querySelectorAll("[mindar-image-target]");
+      document.getElementById("backBtn").style.display = "block";
+
+      targets.forEach(target => {
+        target.addEventListener("targetFound", event => {
+          const country = event.target.dataset.country;
+
+          console.log("🎯 Detectado:", country);
+          currentCountry = event.target.dataset.country; 
+          activeTargetEntity = event.target;
+
+          const model = event.target.querySelector("a-gltf-model"); 
+          model.setAttribute("visible", "true");
+          showInfo(currentCountry);
+          buttonsPanel.style.display = "flex";
+          resetButtons();
+        });
+
+        target.addEventListener("targetLost", event => {
+          const country = event.target.dataset.country;
+          const modelWrapper = event.target.querySelector(".model-wrapper");
+          const model = event.target.querySelector("a-gltf-model");
+
+          console.log("❌ Perdido:", country);
+          currentCountry = null;
+          activeTargetEntity = null;
+          
+          if (model) {
+            model.setAttribute("visible", "false");
+            model.removeAttribute('animation-mixer'); 
+          }
+          if (modelWrapper) {
+            modelWrapper.setAttribute('auto-rotate', 'enabled: false'); 
+            modelWrapper.setAttribute('rotation', '0 0 0'); 
+          }
+          
+          buttonsPanel.style.display = "none";
+          infoBox.style.display = "none";
+          model.removeAttribute('animation-mixer');
+          model.removeAttribute('animation');
+        });
+      });
+    }
+
+    startBtn.addEventListener("click", () => {
+      document.getElementById("intro").style.display = "none";
+      document.querySelector("header").style.display = "none";
+      document.querySelector("footer").style.display = "none";
+      document.getElementById('ar-header').style.display = 'flex';
+      document.getElementById('ar-footer').style.display = 'block';
+
+      videoPlayer.pause();
+
+      arContainer.classList.add("active");
+      
+
+      arContainer.innerHTML = `
+        <a-scene mindar-image="imageTargetSrc: assets/targets/targets.mind; autoStart: true;" 
+                 color-space="sRGB" 
+                 renderer="colorManagement: true" vr-mode-ui="enabled: false"
+                 device-orientation-permission-ui="enabled: false">
+          
+          <a-assets timeout="10000">
+            <a-asset-item id="model-brasil" src="assets/modelos/brasilao/cristeredenter.glb"></a-asset-item>
+            <a-asset-item id="model-australia" src="assets/modelos/austria/austria.glb"></a-asset-item>
+            <a-asset-item id="model-coreasur" src="assets/modelos/coreaS/coreaS.glb"></a-asset-item>
+            <a-asset-item id="model-usa" src="assets/modelos/eagle/scene.glb"></a-asset-item>
+            <a-asset-item id="model-ecuador" src="assets/modelos/flag/scene.glb"></a-asset-item>
+            <a-asset-item id="model-iran" src="assets/modelos/iran/scene.glb"></a-asset-item>
+            <a-asset-item id="model-argentina" src="assets/modelos/mate/scene.glb"></a-asset-item>
+            <a-asset-item id="model-mexico" src="assets/modelos/mexico/scene.glb"></a-asset-item>
+            <a-asset-item id="model-canada" src="assets/modelos/moose/scene.gltf"></a-asset-item>
+            <a-asset-item id="model-marruecos" src="assets/modelos/morocco/scene.glb"></a-asset-item>
+            <a-asset-item id="model-nuevazelan" src="assets/modelos/NZ/NZ.gltf"></a-asset-item>
+            <a-asset-item id="model-paraguay" src="assets/modelos/para/scene.glb"></a-asset-item>
+            <a-asset-item id="model-jordan" src="assets/modelos/petra/scene.glb"></a-asset-item> 
+            <a-asset-item id="model-japon" src="assets/modelos/suchi/scene.glb"></a-asset-item>
+            <a-asset-item id="model-tunez" src="assets/modelos/tunez/scene.glb"></a-asset-item>           
+            <a-asset-item id="model-uruguay" src="assets/modelos/Uru/scene.glb"></a-asset-item> 
+            <a-asset-item id="model-uzbekistan" src="assets/modelos/uzbe/scene.glb"></a-asset-item>
+            <a-asset-item id="model-colombia" src="assets/modelos/colombia/scene.gltf"></a-asset-item>
+            
+          </a-assets>
+
+          <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+          <a-entity mindar-image-target="targetIndex: 0" data-country="mexico">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-mexico" scale="0.12 0.12 0.12" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+          
+          <a-entity mindar-image-target="targetIndex: 1" data-country="mexico">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-mexico" scale="0.12 0.12 0.12" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+          
+          <a-entity mindar-image-target="targetIndex: 2" data-country="mexico">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-mexico" scale="0.12 0.12 0.12" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 3" data-country="usa">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-usa" scale="0.3 0.3 0.3" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+          
+          <a-entity mindar-image-target="targetIndex: 4" data-country="usa">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-usa" scale="0.3 0.3 0.3" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
+          <a-entity mindar-image-target="targetIndex: 5" data-country="australia">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-australia" scale="0.15 0.15 0.15" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 6" data-country="australia">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-australia" scale="0.15 0.15 0.15" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 7" data-country="brasil">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-brasil" scale="0.012 0.012 0.012" position="0 0.35 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+          
+          <a-entity mindar-image-target="targetIndex: 8" data-country="brasil">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-brasil" scale="0.012 0.012 0.012" position="0 0.35 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 9" data-country="iran">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-iran" scale="0.065 0.065 0.065" position="0 0.46 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 10" data-country="iran">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-iran" scale="0.065 0.065 0.065" position="0 0.46 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 11" data-country="japon">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-japon" scale="0.01 0.01 0.01" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 12" data-country="japon">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-japon" scale="0.01 0.01 0.01" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 13" data-country="argentina">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-argentina" scale="3.5 3.5 3.5" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+      
+          <a-entity mindar-image-target="targetIndex: 14" data-country="argentina">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-argentina" scale="5 5 5" position="0 0.3 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 15" data-country="canada">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-canada" scale="0.35 0.35 0.35" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
+          <a-entity mindar-image-target="targetIndex: 16" data-country="canada">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-canada" scale="0.35 0.35 0.35" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 17" data-country="uzbekistan">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-uzbekistan" scale="0.15 0.15 0.25" position="0 0.35 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
+          <a-entity mindar-image-target="targetIndex: 18" data-country="uzbekistan">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-uzbekistan" scale="0.15 0.15 0.15" position="0 0.35 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 19" data-country="jordan">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-jordan" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
+          <a-entity mindar-image-target="targetIndex: 20" data-country="jordan">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-jordan" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 21" data-country="nuevazelan">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-nuevazelan" scale="0.12 0.12 0.12" position="0 0.35 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
+          <a-entity mindar-image-target="targetIndex: 22" data-country="nuevazelan">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-nuevazelan" scale="0.12 0.12 0.12" position="0 0.35 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 23" data-country="ecuador">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-ecuador" scale="0.12 0.12 0.12" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+  
+          <a-entity mindar-image-target="targetIndex: 24" data-country="ecuador">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-ecuador" scale="0.12 0.12 0.12" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 25" data-country="coreasur">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-coreasur" scale="0.11 0.11 0.115" position="0 0.33 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
+          <a-entity mindar-image-target="targetIndex: 26" data-country="coreasur">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-coreasur" scale="0.11 0.11 0.11" position="0 0.33 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 27" data-country="colombia">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-colombia" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
+          <a-entity mindar-image-target="targetIndex: 28" data-country="colombia">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-colombia" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 29" data-country="uruguay">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-uruguay" scale="0.06 0.06 0.06" position="0 0.5 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
+          <a-entity mindar-image-target="targetIndex: 30" data-country="uruguay">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-uruguay" scale="0.06 0.06 0.06" position="0 0.5 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 31" data-country="paraguay">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-paraguay" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
+          <a-entity mindar-image-target="targetIndex: 32" data-country="paraguay">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-paraguay" scale="0.12 0.12 0.12" position="0 0.38 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 33" data-country="marruecos">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-marruecos" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
+          <a-entity mindar-image-target="targetIndex: 34" data-country="marruecos">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-marruecos" scale="0.14 0.14 0.14" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 35" data-country="tunez">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-tunez" scale="0.11 0.11 0.11" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+            
+          <a-entity mindar-image-target="targetIndex: 36" data-country="tunez">
+            <a-entity class="model-wrapper" auto-rotate="enabled: false;">
+              <a-gltf-model src="#model-tunez" scale="0.11 0.11 0.11" position="0 0.4 0" visible="false"></a-gltf-model>
+            </a-entity>
+          </a-entity>
+
+      `;
+
+      setTimeout(() => {
+        window.dispatchEvent(new Event("resize"));
+      }, 300);
+
+      initARLogic();
+      resetButtons();
+    });
+  </script>
 </body>
 </html>
